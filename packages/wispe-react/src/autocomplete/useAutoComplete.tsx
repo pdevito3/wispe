@@ -298,6 +298,13 @@ export function useAutoComplete<T, V = T>({
     ]
   );
 
+  // when there is an initial selected item, the input value should be set to the string value of that item
+  useEffect(() => {
+    if (mode === "single" && selectedItem) {
+      setInputValue(itemToStringFn(selectedItem));
+    }
+  }, [mode, selectedItem, setInputValue, itemToStringFn]);
+
   const { isCustomItem } = useCustomValue<T>({
     items,
     inputValue,

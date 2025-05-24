@@ -6,7 +6,7 @@ import { cn } from "../utils";
 
 export function ControlledByIdExample() {
   // external “selected value” is just the user’s numeric ID
-  const [selectedId, setSelectedId] = useState<number | undefined>(undefined);
+  const [selectedId, setSelectedId] = useState<number | undefined>(2);
 
   const {
     getRootProps,
