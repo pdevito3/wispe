@@ -497,10 +497,10 @@ export function useAutoComplete<T, V = T>({
     getGroupLabelProps,
     hasSelectedItem: () =>
       mode === "multiple"
-        ? externalSelectedValues.length > 0
-        : externalSelectedValue !== undefined,
-    getSelectedValue: () => externalSelectedValue,
-    getSelectedValues: () => externalSelectedValues,
+        ? selectedItems.length > 0
+        : selectedItem !== undefined,
+    getSelectedValue: () => selectedItem,
+    getSelectedValues: () => selectedItems,
     isOpen,
     setIsOpen,
     isCustomItem,
