@@ -37,5 +37,10 @@
     "src/**/*.jsx",
     "src/**/*.ts",
     "src/**/*.tsx"
+  ],
+  "references": [
+    {
+      "path": "../../packages/wispe-react/tsconfig.lib.json"
+    }
   ]
 }

@@ -1,13 +1,11 @@
-import NxWelcome from "./nx-welcome";
+import { wispeReact } from "@wispe/wispe-react";
 
 export function App() {
   return (
     <div>
-      <NxWelcome title="@wispe/ui-tests"/>
+      <p>{wispeReact()}</p>
     </div>
   );
 }
 
 export default App;
-
-
