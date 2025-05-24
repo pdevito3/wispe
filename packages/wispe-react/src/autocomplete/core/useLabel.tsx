@@ -11,8 +11,19 @@ export function useLabel(opts: UseLabelOptions) {
       [key: `data-${string}`]: boolean;
     } => ({
       htmlFor: opts.htmlFor,
-      // TODO don't rely on tailwind here
-      className: opts.srOnly ? "sr-only" : undefined,
+      style: opts.srOnly
+        ? {
+            position: "absolute",
+            width: "1px",
+            height: "1px",
+            padding: 0,
+            margin: "-1px",
+            overflow: "hidden",
+            clip: "rect(0, 0, 0, 0)",
+            whiteSpace: "nowrap",
+            borderWidth: 0,
+          }
+        : undefined,
       "data-label": true,
     }),
     [opts.htmlFor, opts.srOnly]
