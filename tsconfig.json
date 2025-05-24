@@ -5,6 +5,12 @@
   "references": [
     {
       "path": "./packages/wispe-react"
+    },
+    {
+      "path": "./tests/ui-tests-e2e"
+    },
+    {
+      "path": "./tests/ui-tests"
     }
   ]
 }
