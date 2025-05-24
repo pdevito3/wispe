@@ -1,7 +1,7 @@
-# wispe-react
+# @wispe/wispe-react
 
 This library was generated with [Nx](https://nx.dev).
 
-## Building
+## Running unit tests
 
-Run `nx build wispe-react` to build the library.
+Run `nx test @wispe/wispe-react` to execute the unit tests via [Jest](https://jestjs.io).
