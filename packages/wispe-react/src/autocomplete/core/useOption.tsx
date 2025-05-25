@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect } from "react";
-import type { ActionItem, Mode, OptionState } from "../types";
+import type { ActionItem, ItemState, Mode } from "../types";
 
 export function useOption<T>({
   items,
@@ -110,7 +110,7 @@ export function useOption<T>({
   );
 
   const getItemState = useCallback(
-    (item: T | ActionItem): OptionState => {
+    (item: T | ActionItem): ItemState => {
       // always treat actions as their own state
       if ((item as ActionItem).__isAction) {
         return {
@@ -154,8 +154,8 @@ export function useOption<T>({
         typeof linkResult === "string"
           ? { href: linkResult }
           : linkResult && typeof linkResult === "object"
-          ? { ...linkResult }
-          : {};
+            ? { ...linkResult }
+            : {};
 
       return {
         role: "option",
