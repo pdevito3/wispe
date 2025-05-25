@@ -176,11 +176,6 @@ export interface UseAutoCompleteOptions<T, V = T> {
   }) => Promise<void>;
   /** Callback when a value is selected (always receives the raw T). */
   onSelectItem?: (value: T) => void;
-  /** Async handler for custom value creation. */
-  onCustomItemCreationAsync?: (params: {
-    value: string;
-    signal: AbortSignal;
-  }) => Promise<void>;
   /** Callback for clear-button clicks. */
   onClearAsync?: (params: { signal: AbortSignal }) => Promise<void>;
   /** Determine if an item should be disabled. */
