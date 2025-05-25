@@ -173,12 +173,6 @@ export function useAutoComplete<T, V = T>({
     },
     [mode]
   );
-  const externalSelectedValue = useMemo<V | undefined>(() => {
-    if (selectedValueProp !== undefined) return selectedValueProp;
-    return internalSelectedItem !== undefined
-      ? mapValue(internalSelectedItem)
-      : undefined;
-  }, [selectedValueProp, internalSelectedItem, mapValue]);
 
   // MULTIPLE mode: internal T[]-state + controlled V[]-state
   const [selectedItemsState, setSelectedItemsState] = useState<T[]>([]);
@@ -196,10 +190,6 @@ export function useAutoComplete<T, V = T>({
     },
     [mode]
   );
-  const externalSelectedValues = useMemo<V[]>(() => {
-    if (selectedValuesProp !== undefined) return selectedValuesProp;
-    return selectedItemsState.map(mapValue);
-  }, [selectedValuesProp, selectedItemsState, mapValue]);
 
   // Exposed to other features
   const selectedItem = mode === "single" ? internalSelectedItem : undefined;
