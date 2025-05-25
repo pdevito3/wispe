@@ -112,6 +112,11 @@ export function useAutoComplete<T, V = T>({
   allowsEmptyCollection = false,
   tabs = [],
   defaultTabKey,
+  rootRef: rootRefProp,
+  listboxRef: listboxRefProp,
+  inputRef: inputRefProp,
+  labelRef: labelRefProp,
+  clearRef: clearRefProp,
   mapValue = (item: T) => item as unknown as V,
 }: UseAutoCompleteOptions<T, V>):
   | UseAutoCompleteUngroupedSingleNoActions<T>
@@ -415,6 +420,7 @@ export function useAutoComplete<T, V = T>({
     setSelectedItems: clearSelectedItems,
     setActiveItem,
     setIsOpen,
+    clearRef: clearRefProp,
   });
 
   const { getTabListProps, getTabState, getTabProps } = useTabs<T>({
@@ -436,6 +442,7 @@ export function useAutoComplete<T, V = T>({
     setIsOpen,
     setActiveItem,
     setHighlightedIndex,
+    rootRef: rootRefProp,
   });
 
   const { getListProps } = useListbox({
@@ -444,6 +451,7 @@ export function useAutoComplete<T, V = T>({
     hasGroups: groupingOptions.length > 0,
     isEmpty: flattenedItems.length === 0,
     size: flattenedItems.length,
+    listboxRef: listboxRefProp,
   });
 
   const { getInputProps } = useInput({
@@ -463,11 +471,13 @@ export function useAutoComplete<T, V = T>({
     onInputValueChange,
     setIsFocused,
     disabled,
+    inputRef: inputRefProp,
   });
 
   const { getLabelProps } = useLabel({
     htmlFor: "autocomplete-input",
     srOnly: labelSrOnly,
+    labelRef: labelRefProp,
   });
 
   const { getGroupProps, getGroupLabelProps } = useGroup();

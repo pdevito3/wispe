@@ -192,6 +192,16 @@ export interface UseAutoCompleteOptions<T, V = T> {
   tabs?: Tab<T>[];
   /** Default selected tab key. */
   defaultTabKey?: string;
+  /** An optional ref for the root element. */
+  rootRef?: React.RefObject<HTMLDivElement>;
+  /** An optional ref for the listbox element. */
+  listboxRef?: React.RefObject<HTMLUListElement>;
+  /** An optional ref for the input element. */
+  inputRef?: React.RefObject<HTMLInputElement>;
+  /** An optional ref for the label element. */
+  labelRef?: React.RefObject<HTMLLabelElement>;
+  /** An optional ref for the clear button element. */
+  clearRef?: React.RefObject<HTMLButtonElement>;
 }
 
 /**

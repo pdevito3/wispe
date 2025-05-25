@@ -1,31 +1,36 @@
+// autocomplete/core/useClearButton.tsx
 import React, { useCallback, useRef } from "react";
 
 export interface UseClearButtonOptions<T, V> {
   /** current input text */
   inputValue: string;
-  /** single‑select value (if mode = single) */
+  /** single-select value (if mode = single) */
   selectedItem?: T;
-  /** multi‑select values (if mode = multiple) */
+  /** multi-select values (if mode = multiple) */
   selectedItems: T[];
   /** 'single' or 'multiple' */
   mode: "single" | "multiple";
   /** async clear that fires when the selected value is cleared */
-  onClearAsync?: (params: {
-    signal: AbortSignal;
-  }) => Promise<void> /** reset the input text */;
+  onClearAsync?: (params: { signal: AbortSignal }) => Promise<void>;
+  /** reset the input text */
   setInputValue(value: string): void;
-  /** reset the single‑select value */
+  /** reset the single-select value */
   setSelectedItem?(value: T | undefined): void;
-  /** reset the multi‑select values */
+  /** reset the multi-select values */
   setSelectedItems?(values: T[]): void;
   /** clear any active/highlighted item */
   setActiveItem(item: T | null): void;
   /** close the listbox */
   setIsOpen(open: boolean): void;
+  /** Optional external ref for the clear button element */
+  clearRef?: React.RefObject<HTMLButtonElement>;
 }
 
 export function useClearButton<T, V = T>(opts: UseClearButtonOptions<T, V>) {
   const abortControllerRef = useRef<AbortController | null>(null);
+  // always call hook
+  const innerClearRef = useRef<HTMLButtonElement | null>(null);
+  const clearRef = opts.clearRef ?? innerClearRef;
 
   const handleClear = useCallback(async () => {
     // reset UI state first
@@ -57,9 +62,10 @@ export function useClearButton<T, V = T>(opts: UseClearButtonOptions<T, V>) {
   }, [opts]);
 
   const getClearProps =
-    useCallback((): React.ButtonHTMLAttributes<HTMLButtonElement> & {
-      [key: `data-${string}`]: string | boolean | undefined;
-    } => {
+    useCallback((): React.ButtonHTMLAttributes<HTMLButtonElement> &
+      React.RefAttributes<HTMLButtonElement> & {
+        [key: `data-${string}`]: string | boolean | undefined;
+      } => {
       const disabled =
         opts.inputValue === "" &&
         (opts.mode === "single"
@@ -67,6 +73,7 @@ export function useClearButton<T, V = T>(opts: UseClearButtonOptions<T, V>) {
           : opts.selectedItems.length === 0);
 
       return {
+        ref: clearRef,
         type: "button",
         "aria-label": "Clear input",
         onClick: handleClear,
@@ -80,7 +87,8 @@ export function useClearButton<T, V = T>(opts: UseClearButtonOptions<T, V>) {
       opts.selectedItem,
       opts.selectedItems,
       handleClear,
+      clearRef,
     ]);
 
-  return { getClearProps, handleClear };
+  return { getClearProps, handleClear, clearRef };
 }

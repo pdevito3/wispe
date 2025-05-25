@@ -1,16 +1,22 @@
-import React from "react";
+import React, { useCallback, useRef } from "react";
 
 export interface UseLabelOptions {
   htmlFor: string;
   srOnly?: boolean;
+  labelRef?: React.RefObject<HTMLLabelElement>;
 }
 
 export function useLabel(opts: UseLabelOptions) {
-  const getLabelProps = React.useCallback(
-    (): React.LabelHTMLAttributes<HTMLLabelElement> & {
-      [key: `data-${string}`]: boolean;
-    } => ({
+  const innerLabelRef = useRef<HTMLLabelElement | null>(null);
+  const labelRef = opts.labelRef ?? innerLabelRef;
+
+  const getLabelProps = useCallback(
+    (): React.LabelHTMLAttributes<HTMLLabelElement> &
+      React.RefAttributes<HTMLLabelElement> & {
+        [key: `data-${string}`]: boolean;
+      } => ({
       htmlFor: opts.htmlFor,
+      ref: labelRef,
       style: opts.srOnly
         ? {
             position: "absolute",
@@ -26,8 +32,8 @@ export function useLabel(opts: UseLabelOptions) {
         : undefined,
       "data-label": true,
     }),
-    [opts.htmlFor, opts.srOnly]
+    [labelRef, opts.htmlFor, opts.srOnly]
   );
 
-  return { getLabelProps };
+  return { getLabelProps, labelRef };
 }

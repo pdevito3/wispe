@@ -7,6 +7,11 @@
       "@nx/react/typings/cssmodule.d.ts",
       "@nx/react/typings/image.d.ts"
     ],
+    "lib": [
+      "dom",
+      "dom.iterable", 
+      "es6"
+    ],
     "module": "esnext",
     "moduleResolution": "bundler",
     "rootDir": "src",

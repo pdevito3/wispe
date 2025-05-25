@@ -10,6 +10,7 @@ export function useAutocompleteRoot<T>({
   setIsOpen,
   setActiveItem,
   setHighlightedIndex,
+  rootRef: rootRefProp,
 }: {
   isOpen: boolean;
   isFocused: boolean;
@@ -20,8 +21,12 @@ export function useAutocompleteRoot<T>({
   setIsOpen: (isOpen: boolean) => void;
   setActiveItem: (item: T | null) => void;
   setHighlightedIndex: (index: number | null) => void;
+  /** Optional external ref for the root element */
+  rootRef?: React.RefObject<HTMLDivElement | null>;
 }) {
-  const rootRef = useRef<HTMLDivElement | null>(null);
+  const innerRootRef = useRef<HTMLDivElement | null>(null);
+  const rootRef = rootRefProp ?? innerRootRef;
+
   const getRootProps = useCallback((): React.HTMLAttributes<HTMLDivElement> & {
     ref: React.Ref<HTMLDivElement>;
   } & { [key: `data-${string}`]: string | boolean | undefined } => {
@@ -41,11 +46,19 @@ export function useAutocompleteRoot<T>({
             ? "true"
             : undefined
           : selectedItem
-          ? "true"
-          : undefined,
+            ? "true"
+            : undefined,
       "data-has-value": inputValue.trim() !== "" ? "true" : undefined,
     };
-  }, [isOpen, isFocused, mode, selectedItem, selectedItems, inputValue]);
+  }, [
+    rootRef,
+    isOpen,
+    isFocused,
+    mode,
+    selectedItems.length,
+    selectedItem,
+    inputValue,
+  ]);
 
   // Close the listbox when clicking outside
   useEffect(() => {
@@ -58,7 +71,7 @@ export function useAutocompleteRoot<T>({
     }
     document.addEventListener("mousedown", onClickOutside);
     return () => document.removeEventListener("mousedown", onClickOutside);
-  }, [setIsOpen, setActiveItem, setHighlightedIndex]);
+  }, [setIsOpen, setActiveItem, setHighlightedIndex, rootRef]);
 
-  return { getRootProps };
+  return { getRootProps, rootRef };
 }

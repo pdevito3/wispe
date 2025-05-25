@@ -11,16 +11,20 @@ export interface UseListboxOptions {
   isEmpty: boolean;
   /** Number of items (flattened) */
   size: number;
+  /** Optional external ref for the listbox */
+  listboxRef?: React.RefObject<HTMLUListElement>;
 }
 
 export function useListbox(opts: UseListboxOptions) {
-  const listboxRef = useRef<HTMLUListElement | null>(null);
+  const innerListboxRef = useRef<HTMLUListElement | null>(null);
+  const listboxRef = opts.listboxRef ?? innerListboxRef;
+
   const getListProps = React.useCallback(
     () => ({
       id: "autocomplete-listbox",
+      ref: listboxRef,
       role: "listbox",
       "aria-label": opts.label,
-      ref: listboxRef,
       tabIndex: -1,
       "data-listbox": true,
       "data-state": opts.isOpen ? "open" : "closed",
@@ -28,7 +32,14 @@ export function useListbox(opts: UseListboxOptions) {
       "data-empty": opts.isEmpty ? "true" : undefined,
       "data-size": opts.size,
     }),
-    [opts.isOpen, opts.label, opts.hasGroups, opts.isEmpty, opts.size]
+    [
+      opts.label,
+      opts.isOpen,
+      opts.hasGroups,
+      opts.isEmpty,
+      opts.size,
+      listboxRef,
+    ]
   );
 
   return { getListProps, listboxRef };

@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useRef } from "react";
 
 export interface UseInputOptions<T> {
   /** Current input text */
@@ -38,6 +38,8 @@ export interface UseInputOptions<T> {
   setInputValue(value: string): void;
   setIsFocused(isFocused: boolean): void;
   disabled?: boolean;
+  /** Optional external ref for the input element */
+  inputRef?: React.RefObject<HTMLInputElement>;
 }
 
 export function useInput<T>(opts: UseInputOptions<T>) {
@@ -55,7 +57,6 @@ export function useInput<T>(opts: UseInputOptions<T>) {
             signal: controller.signal,
           });
         } catch (err) {
-          // ignore only user‑aborted calls
           if (!(err instanceof Error && err.name === "AbortError")) {
             console.error(err);
           }
@@ -65,11 +66,16 @@ export function useInput<T>(opts: UseInputOptions<T>) {
     [opts]
   );
 
+  const innerInputRef = useRef<HTMLInputElement | null>(null);
+  const inputRef = opts.inputRef ?? innerInputRef;
+
   const getInputProps = React.useCallback(
-    (): React.InputHTMLAttributes<HTMLInputElement> & {
-      [key: `data-${string}`]: string | boolean | undefined;
-    } => ({
+    (): React.InputHTMLAttributes<HTMLInputElement> &
+      React.RefAttributes<HTMLInputElement> & {
+        [key: `data-${string}`]: string | boolean | undefined;
+      } => ({
       id: "autocomplete-input",
+      ref: inputRef,
       value: opts.inputValue,
       disabled: opts.disabled ?? undefined,
       onChange: handleInputChange,
@@ -122,8 +128,8 @@ export function useInput<T>(opts: UseInputOptions<T>) {
       "data-autocomplete": "list",
       "aria-disabled": opts.disabled ? "true" : undefined,
     }),
-    [handleInputChange, opts]
+    [handleInputChange, inputRef, opts]
   );
 
-  return { getInputProps };
+  return { getInputProps, inputRef };
 }
