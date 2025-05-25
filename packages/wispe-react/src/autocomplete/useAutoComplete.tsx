@@ -288,6 +288,15 @@ export function useAutoComplete<T, V = T>({
     ]
   );
 
+  // when selected value resets, the input value should be reset
+  useEffect(() => {
+    if (mode === "single" && selectedValueProp !== undefined) {
+      setInputValue("");
+    } else if (mode === "multiple" && selectedValuesProp !== undefined) {
+      setInputValue("");
+    }
+  }, [mode, selectedValueProp, selectedValuesProp, setInputValue]);
+
   // when there is an initial selected item, the input value should be set to the string value of that item
   useEffect(() => {
     if (mode === "single" && selectedItem) {
