@@ -40,6 +40,8 @@ export interface UseInputOptions<T> {
   disabled?: boolean;
   /** Optional external ref for the input element */
   inputRef?: React.RefObject<HTMLInputElement>;
+  /** Base internal ID for the listbox */
+  internalId: string;
 }
 
 export function useInput<T>(opts: UseInputOptions<T>) {
@@ -74,7 +76,7 @@ export function useInput<T>(opts: UseInputOptions<T>) {
       React.RefAttributes<HTMLInputElement> & {
         [key: `data-${string}`]: string | boolean | undefined;
       } => ({
-      id: "autocomplete-input",
+      id: `${opts.internalId}-input`,
       ref: inputRef,
       value: opts.inputValue,
       disabled: opts.disabled ?? undefined,

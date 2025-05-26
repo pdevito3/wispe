@@ -10,6 +10,7 @@ export function useGrouping<T>({
   items,
   tabs,
   activeTabIndex,
+  internalId,
 }: {
   allowsCustomItems: boolean;
   inputValue: string;
@@ -19,6 +20,8 @@ export function useGrouping<T>({
   items: T[];
   tabs: Tab<T>[];
   activeTabIndex: number;
+  /** Base internal ID for the autocomplete */
+  internalId: string;
 }) {
   // Normalize the grouping definitions array
   const groupingOptions = React.useMemo(
@@ -46,6 +49,7 @@ export function useGrouping<T>({
           label: propLabel,
           listProps: {
             role: "group",
+            id: `${internalId}-group-${level}-${groupKey}`,
             "aria-label": propLabel,
             "data-group": true,
             "data-group-key": groupKey,
@@ -57,6 +61,7 @@ export function useGrouping<T>({
             headingProps: {
               role: "presentation",
               "data-group-label": true,
+              id: `${internalId}-group-label-${level}-${groupKey}`,
               "data-group-key": groupKey,
             },
           },
@@ -65,7 +70,7 @@ export function useGrouping<T>({
         return grp;
       });
     },
-    [groupingOptions]
+    [groupingOptions, internalId]
   );
 
   // Flatten nested groups back to a flat list

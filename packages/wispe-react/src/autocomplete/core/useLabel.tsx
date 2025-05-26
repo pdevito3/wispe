@@ -4,6 +4,8 @@ export interface UseLabelOptions {
   htmlFor: string;
   srOnly?: boolean;
   labelRef?: React.RefObject<HTMLLabelElement>;
+  /** Base internal ID for the listbox */
+  internalId: string;
 }
 
 export function useLabel(opts: UseLabelOptions) {
@@ -17,6 +19,7 @@ export function useLabel(opts: UseLabelOptions) {
       } => ({
       htmlFor: opts.htmlFor,
       ref: labelRef,
+      id: `${opts.internalId}-label`,
       style: opts.srOnly
         ? {
             position: "absolute",
@@ -32,7 +35,7 @@ export function useLabel(opts: UseLabelOptions) {
         : undefined,
       "data-label": true,
     }),
-    [labelRef, opts.htmlFor, opts.srOnly]
+    [labelRef, opts.htmlFor, opts.internalId, opts.srOnly]
   );
 
   return { getLabelProps, labelRef };

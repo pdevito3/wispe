@@ -9,6 +9,8 @@ export interface UseDisclosureOptions {
   itemsLength: number;
   /** toggle open/closed */
   setIsOpen(open: boolean): void;
+  /** Base internal ID for the listbox */
+  internalId: string;
 }
 
 export function useDisclosure(opts: UseDisclosureOptions) {
@@ -25,6 +27,7 @@ export function useDisclosure(opts: UseDisclosureOptions) {
       [key: `data-${string}`]: string | boolean | undefined;
     } => ({
       type: "button",
+      id: `${opts.internalId}-disclosure-button`,
       "aria-label": opts.isOpen ? "Close options" : "Open options",
       onClick: handleDisclosure,
       "data-disclosure-button": true,

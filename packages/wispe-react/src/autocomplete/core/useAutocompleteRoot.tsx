@@ -11,6 +11,7 @@ export function useAutocompleteRoot<T>({
   setActiveItem,
   setHighlightedIndex,
   rootRef: rootRefProp,
+  internalId,
 }: {
   isOpen: boolean;
   isFocused: boolean;
@@ -23,6 +24,8 @@ export function useAutocompleteRoot<T>({
   setHighlightedIndex: (index: number | null) => void;
   /** Optional external ref for the root element */
   rootRef?: React.RefObject<HTMLDivElement | null>;
+  /** Base internal ID for the listbox */
+  internalId: string;
 }) {
   const innerRootRef = useRef<HTMLDivElement | null>(null);
   const rootRef = rootRefProp ?? innerRootRef;
@@ -32,6 +35,7 @@ export function useAutocompleteRoot<T>({
   } & { [key: `data-${string}`]: string | boolean | undefined } => {
     return {
       ref: rootRef,
+      id: `${internalId}-root`,
       role: "combobox",
       "aria-expanded": isOpen,
       "aria-haspopup": "listbox",
@@ -52,6 +56,7 @@ export function useAutocompleteRoot<T>({
     };
   }, [
     rootRef,
+    internalId,
     isOpen,
     isFocused,
     mode,

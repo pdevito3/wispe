@@ -26,6 +26,7 @@ import type {
   UseAutoCompleteUngroupedSingleNoActions,
   UseAutoCompleteUngroupedSingleWithActions,
 } from "../autocomplete/types";
+import { useStableId } from "../hooks/use-id";
 
 export function useAutoComplete<T, V = T>(
   options: UseAutoCompleteOptions<T, V> & {
@@ -148,6 +149,7 @@ export function useAutoComplete<T, V = T>({
     selectedValues: selectedValuesProp,
     setSelectedValues: setSelectedValuesProp,
   } = state;
+  const internalId = useStableId();
 
   // Input state
   const [inputValueState, setInputValueState] = useState<string>(
@@ -238,6 +240,7 @@ export function useAutoComplete<T, V = T>({
       items,
       tabs,
       activeTabIndex,
+      internalId,
     });
 
   const isItemDisabled = useCallback(
@@ -341,6 +344,7 @@ export function useAutoComplete<T, V = T>({
     getItemLink,
     setActiveItem,
     close: () => setIsOpen(false),
+    internalId,
   });
 
   const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
@@ -404,6 +408,7 @@ export function useAutoComplete<T, V = T>({
     setIsOpen,
     allowsEmptyCollection,
     itemsLength: flattenedItems.length,
+    internalId,
   });
 
   const clearSelectedItem = setSelectedValueProp
@@ -431,6 +436,7 @@ export function useAutoComplete<T, V = T>({
     setActiveItem,
     setIsOpen,
     clearRef: clearRefProp,
+    internalId,
   });
 
   const { getTabListProps, getTabState, getTabProps } = useTabs<T>({
@@ -440,6 +446,7 @@ export function useAutoComplete<T, V = T>({
     tabs,
     setActiveTabIndex,
     handleKeyDown,
+    internalId,
   });
 
   const { getRootProps } = useAutocompleteRoot<T>({
@@ -453,6 +460,7 @@ export function useAutoComplete<T, V = T>({
     setActiveItem,
     setHighlightedIndex,
     rootRef: rootRefProp,
+    internalId,
   });
 
   const { getListProps } = useListbox({
@@ -462,6 +470,7 @@ export function useAutoComplete<T, V = T>({
     isEmpty: flattenedItems.length === 0,
     size: flattenedItems.length,
     listboxRef: listboxRefProp,
+    internalId,
   });
 
   const { getInputProps } = useInput({
@@ -482,12 +491,14 @@ export function useAutoComplete<T, V = T>({
     setIsFocused,
     disabled,
     inputRef: inputRefProp,
+    internalId,
   });
 
   const { getLabelProps } = useLabel({
     htmlFor: "autocomplete-input",
     srOnly: labelSrOnly,
     labelRef: labelRefProp,
+    internalId,
   });
 
   const { getGroupProps, getGroupLabelProps } = useGroup();

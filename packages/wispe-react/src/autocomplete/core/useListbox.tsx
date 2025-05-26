@@ -13,6 +13,8 @@ export interface UseListboxOptions {
   size: number;
   /** Optional external ref for the listbox */
   listboxRef?: React.RefObject<HTMLUListElement>;
+  /** Base internal ID for the listbox */
+  internalId: string;
 }
 
 export function useListbox(opts: UseListboxOptions) {
@@ -21,7 +23,7 @@ export function useListbox(opts: UseListboxOptions) {
 
   const getListProps = React.useCallback(
     () => ({
-      id: "autocomplete-listbox",
+      id: `${opts.internalId}-listbox`,
       ref: listboxRef,
       role: "listbox",
       "aria-label": opts.label,
@@ -33,6 +35,7 @@ export function useListbox(opts: UseListboxOptions) {
       "data-size": opts.size,
     }),
     [
+      opts.internalId,
       opts.label,
       opts.isOpen,
       opts.hasGroups,

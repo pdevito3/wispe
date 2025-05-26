@@ -15,6 +15,7 @@ export function useOption<T>({
   setActiveItem,
   optionRefs,
   close,
+  internalId,
 }: {
   /** the full, flattened list (including any ActionItem entries) */
   items: Array<T | ActionItem>;
@@ -39,6 +40,8 @@ export function useOption<T>({
   setActiveItem(item: T | ActionItem): void;
   optionRefs: React.RefObject<Array<HTMLLIElement | null>>;
   close: () => void;
+  /** Base internal ID for the autocomplete */
+  internalId: string;
 }) {
   const getItemProps = useCallback(
     (item: T | ActionItem) => {
@@ -79,7 +82,7 @@ export function useOption<T>({
 
       return {
         role: "option",
-        id: `option-${index}`,
+        id: `${internalId}-option-${index}`,
         "aria-posinset": index + 1,
         "aria-setsize": items.length,
         "aria-selected": isSelected,
@@ -104,6 +107,7 @@ export function useOption<T>({
       selectedItems,
       selectedItem,
       isCustomItem,
+      internalId,
       optionRefs,
       onSelect,
     ]

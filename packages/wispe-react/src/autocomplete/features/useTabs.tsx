@@ -8,6 +8,7 @@ export function useTabs<T>({
   tabs,
   setActiveTabIndex,
   handleKeyDown,
+  internalId,
 }: {
   tabRefs: React.RefObject<Array<HTMLButtonElement | null>>;
   activeTabIndex: number;
@@ -15,11 +16,13 @@ export function useTabs<T>({
   tabs: Tab<T>[];
   setActiveTabIndex: (index: number) => void;
   handleKeyDown: (event: React.KeyboardEvent<HTMLElement>) => void;
+  /** Base internal ID for the autocomplete */
+  internalId: string;
 }) {
   const getTabProps = useCallback(
     (tab: Tab<T>, index: number) => ({
       role: "tab",
-      id: `autocomplete-tab-${tab.key}`,
+      id: `${internalId}-tab-${index}`,
       "aria-selected": index === activeTabIndex || undefined,
       tabIndex: index === activeTabIndex ? 0 : -1,
       onClick: () => setActiveTabIndex(index),
@@ -30,7 +33,7 @@ export function useTabs<T>({
       },
       ...tab.tabProps,
     }),
-    [activeTabIndex, handleKeyDown, setActiveTabIndex, tabRefs]
+    [activeTabIndex, handleKeyDown, internalId, setActiveTabIndex, tabRefs]
   );
 
   const getTabListProps = useCallback(

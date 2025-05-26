@@ -24,6 +24,8 @@ export interface UseClearButtonOptions<T, V> {
   setIsOpen(open: boolean): void;
   /** Optional external ref for the clear button element */
   clearRef?: React.RefObject<HTMLButtonElement>;
+  /** Base internal ID for the listbox */
+  internalId: string;
 }
 
 export function useClearButton<T, V = T>(opts: UseClearButtonOptions<T, V>) {
@@ -73,6 +75,7 @@ export function useClearButton<T, V = T>(opts: UseClearButtonOptions<T, V>) {
           : opts.selectedItems.length === 0);
 
       return {
+        id: `${opts.internalId}-clear-button`,
         ref: clearRef,
         type: "button",
         "aria-label": "Clear input",
@@ -85,9 +88,10 @@ export function useClearButton<T, V = T>(opts: UseClearButtonOptions<T, V>) {
       opts.inputValue,
       opts.mode,
       opts.selectedItem,
-      opts.selectedItems,
-      handleClear,
+      opts.selectedItems.length,
+      opts.internalId,
       clearRef,
+      handleClear,
     ]);
 
   return { getClearProps, handleClear, clearRef };
