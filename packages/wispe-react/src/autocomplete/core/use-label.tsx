@@ -1,7 +1,7 @@
 import React, { useCallback, useRef } from "react";
+import { getInputId } from "../../utils/input-utils";
 
 export interface UseLabelOptions {
-  htmlFor: string;
   srOnly?: boolean;
   labelRef?: React.RefObject<HTMLLabelElement>;
   /** Base internal ID for the autocomplete */
@@ -17,9 +17,9 @@ export function useLabel(opts: UseLabelOptions) {
       React.RefAttributes<HTMLLabelElement> & {
         [key: `data-${string}`]: boolean;
       } => ({
-      htmlFor: opts.htmlFor,
       ref: labelRef,
       id: `${opts.internalId}-label`,
+      htmlFor: getInputId(opts.internalId),
       style: opts.srOnly
         ? {
             position: "absolute",

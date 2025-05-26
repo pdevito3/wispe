@@ -1,4 +1,5 @@
 import React, { useCallback, useRef } from "react";
+import { getInputId } from "../../utils/input-utils";
 
 export interface UseInputOptions<T> {
   /** Current input text */
@@ -76,7 +77,7 @@ export function useInput<T>(opts: UseInputOptions<T>) {
       React.RefAttributes<HTMLInputElement> & {
         [key: `data-${string}`]: string | boolean | undefined;
       } => ({
-      id: `${opts.internalId}-input`,
+      id: getInputId(opts.internalId),
       ref: inputRef,
       value: opts.inputValue,
       disabled: opts.disabled ?? undefined,
