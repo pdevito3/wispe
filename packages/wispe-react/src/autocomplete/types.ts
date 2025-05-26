@@ -237,174 +237,136 @@ export interface TabState {
 // ----------------------------------------------------------------
 
 /**
- * Return type for useAutoComplete without action items.
+ * Base return type for useAutoComplete.
+ *
+ * @template T Original item type
+ * @template V Value type for selection
+ * @template Item Type returned by getItems (e.g. T or T|ActionItem)
+ * @template ActiveItem Type used for active state (e.g. T or T|ActionItem)
  */
-export interface UseAutoCompleteReturnNoActions<T, V = T> {
-  /** Get the list of items to render (T[]). */
-  getItems: () => T[];
+export interface UseAutoCompleteReturnBase<T, V, Item, ActiveItem> {
+  /** Get the list of items to render. */
+  getItems: () => Item[];
+
   /** Get selected item(s). */
   getSelectedItem: () => T | T[] | undefined;
+
   /** True if there is an active (highlighted) item. */
   hasActiveItem: () => boolean;
+
   /** True if the input or list has focus. */
   isFocused: () => boolean;
+
   /** Props for the root <div> (combobox). */
   getRootProps: () => React.HTMLAttributes<HTMLDivElement> & {
     ref: React.Ref<HTMLDivElement>;
-  } & { [key: `data-${string}`]: string | boolean | undefined };
+  } & {
+    [key: `data-${string}`]: string | boolean | undefined;
+  };
+
   /** Props for the <ul> listbox. */
   getListProps<E extends HTMLElement>(): React.HTMLAttributes<E> & {
     ref: React.Ref<E>;
   };
+
   /** Props for the <label>. */
   getLabelProps: () => React.LabelHTMLAttributes<HTMLLabelElement>;
+
   /** Props for the <input>. */
   getInputProps: () => React.InputHTMLAttributes<HTMLInputElement> & {
     [key: `data-${string}`]: string | boolean | undefined;
   };
+
   /** Props for the clear button. */
   getClearProps: () => React.ButtonHTMLAttributes<HTMLButtonElement> & {
     [key: `data-${string}`]: string | boolean | undefined;
   };
+
   /** Props for the disclosure button. */
   getDisclosureProps: () => React.ButtonHTMLAttributes<HTMLButtonElement> & {
     [key: `data-${string}`]: string | boolean | undefined;
   };
+
   /** Props for each <li> item. */
   getItemProps: (item: T | ActionItem) => React.LiHTMLAttributes<HTMLLIElement>;
-  /** State helper for an item. */
-  getItemState: (item: T) => ItemState;
+
+  /** State helper for an item (or action). */
+  getItemState: (item: Item) => ItemState;
+
   /** Props for a group <ul>. */
   getGroupProps: (group: Group<T>) => React.HTMLAttributes<HTMLUListElement>;
+
   /** Props for a group heading <span>. */
   getGroupLabelProps: (
     group: Group<T>
   ) => React.HTMLAttributes<HTMLSpanElement>;
+
   /** True if there is a selected item. */
   hasSelectedItem: () => boolean;
+
   /** Whether the list is open. */
   isOpen: boolean;
+
   /** Toggle the open state. */
   setIsOpen: (open: boolean) => void;
+
   /** Detect custom input values. */
   isCustomItem: (item: T) => boolean;
-  /** Get current highlighted index. */
+
+  /** Get or set the highlighted index. */
   getHighlightedIndex: () => number | null;
-  /** Set highlighted index. */
   setHighlightedIndex: (i: number | null) => void;
-  /** Get current active item. */
-  getActiveItem: () => T | null;
-  /** Set active item. */
-  setActiveItem: (item: T | null) => void;
+
+  /** Get or set the active item/action. */
+  getActiveItem: () => ActiveItem | null;
+  setActiveItem: (item: ActiveItem | null) => void;
+
   /** Props for item links. */
   getItemLinkProps: (
     item: T
   ) => React.AnchorHTMLAttributes<HTMLAnchorElement> & { role: "option" };
+
   /** Clear the input and selection. */
   clear: () => void;
+
   /** Props for the tab list container. */
   getTabListProps: () => React.HTMLAttributes<HTMLDivElement>;
+
   /** Props for an individual tab. */
   getTabProps: (
     tab: Tab<T>,
     index: number
   ) => React.HTMLAttributes<HTMLButtonElement>;
+
   /** State helper for a tab. */
   getTabState: (tab: Tab<T>) => TabState;
-  /** Get the current tab key. */
+
+  /** Get or set the input value (used for tabs). */
   getInputValue: () => string;
-  /** Set the input value. */
   setInputValue: (value: string) => void;
+
   /** True if the input is disabled. */
   getIsDisabled: () => boolean;
+
+  /** Selected value getters. */
   getSelectedValue: () => V | undefined;
   getSelectedValues: () => V[] | undefined;
 }
 
 /**
+ * Return type for useAutoComplete without action items.
+ */
+export type UseAutoCompleteReturnNoActions<
+  T,
+  V = T,
+> = UseAutoCompleteReturnBase<T, V, T, T>;
+/**
  * Return type for useAutoComplete with action items.
  */
-export interface UseAutoCompleteReturnWithActions<T, V = T> {
-  /** Get the list of items to render (T[] | ActionItem[]). */
-  getItems: () => Array<T | ActionItem>;
-  /** Get selected item(s). */
-  getSelectedItem: () => T | T[] | undefined;
-  /** True if there is an active (highlighted) item. */
-  hasActiveItem: () => boolean;
-  /** True if the input or list has focus. */
-  isFocused: () => boolean;
-  /** Props for the root <div> (combobox). */
-  getRootProps: () => React.HTMLAttributes<HTMLDivElement> & {
-    ref: React.Ref<HTMLDivElement>;
-  } & { [key: `data-${string}`]: string | boolean | undefined };
-  /** Props for the listbox. */
-  getListProps<E extends HTMLElement>(): React.HTMLAttributes<E> & {
-    ref: React.Ref<E>;
-  };
-  /** Props for the <label>. */
-  getLabelProps: () => React.LabelHTMLAttributes<HTMLLabelElement>;
-  /** Props for the <input>. */
-  getInputProps: () => React.InputHTMLAttributes<HTMLInputElement> & {
-    [key: `data-${string}`]: string | boolean | undefined;
-  };
-  /** Props for the clear button. */
-  getClearProps: () => React.ButtonHTMLAttributes<HTMLButtonElement> & {
-    [key: `data-${string}`]: string | boolean | undefined;
-  };
-  /** Props for the disclosure button. */
-  getDisclosureProps: () => React.ButtonHTMLAttributes<HTMLButtonElement> & {
-    [key: `data-${string}`]: string | boolean | undefined;
-  };
-  /** Props for each <li> item. */
-  getItemProps: (item: T | ActionItem) => React.LiHTMLAttributes<HTMLLIElement>;
-  /** State helper for an item or action. */
-  getItemState: (item: T | ActionItem) => ItemState;
-  /** Props for a group <ul>. */
-  getGroupProps: (group: Group<T>) => React.HTMLAttributes<HTMLUListElement>;
-  /** Props for a group heading <span>. */
-  getGroupLabelProps: (
-    group: Group<T>
-  ) => React.HTMLAttributes<HTMLSpanElement>;
-  /** True if there is a selected item. */
-  hasSelectedItem: () => boolean;
-  /** Whether the list is open. */
-  isOpen: boolean;
-  /** Toggle the open state. */
-  setIsOpen: (open: boolean) => void;
-  /** Detect custom input values. */
-  isCustomItem: (item: T) => boolean;
-  /** Get current highlighted index. */
-  getHighlightedIndex: () => number | null;
-  /** Set highlighted index. */
-  setHighlightedIndex: (i: number | null) => void;
-  /** Get current active item or action. */
-  getActiveItem: () => T | ActionItem | null;
-  /** Set active item or action. */
-  setActiveItem: (item: T | ActionItem | null) => void;
-  /** Props for option links. */
-  getItemLinkProps: (
-    item: T
-  ) => React.AnchorHTMLAttributes<HTMLAnchorElement> & { role: "option" };
-  /** Clear the input and selection. */
-  clear: () => void;
-  /** Props for the tab list container. */
-  getTabListProps: () => React.HTMLAttributes<HTMLDivElement>;
-  /** Props for an individual tab. */
-  getTabProps: (
-    tab: Tab<T>,
-    index: number
-  ) => React.HTMLAttributes<HTMLButtonElement>;
-  /** State helper for a tab. */
-  getTabState: (tab: Tab<T>) => TabState;
-  /** Get the current tab key. */
-  getInputValue: () => string;
-  /** Set the input value. */
-  setInputValue: (value: string) => void;
-  /** True if the input is disabled. */
-  getIsDisabled: () => boolean;
-  getSelectedValue: () => V | undefined;
-  getSelectedValues: () => V[] | undefined;
-}
+export type UseAutoCompleteReturnWithActions<
+  T,
+  V = T,
+> = UseAutoCompleteReturnBase<T, V, T | ActionItem, T | ActionItem>;
 
 // ----------------------------------------------------------------
 // No-actions variants: getItems(): T[], getSelectedItem(): T | T[]

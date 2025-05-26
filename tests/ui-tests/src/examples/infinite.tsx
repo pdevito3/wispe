@@ -15,8 +15,8 @@ const mockUsers: User[] = Array.from({ length: 80 }, (_, i) => ({
 // Simulate a paged API that accepts a searchTerm
 async function fetchUserPage(
   limit: number,
-  offset: number = 0,
-  searchTerm: string = ""
+  offset = 0,
+  searchTerm = ""
 ): Promise<{ rows: User[]; nextOffset: number }> {
   let filtered = mockUsers;
   if (searchTerm) {
@@ -142,11 +142,11 @@ export function InfiniteAutocompleteExample() {
           <div
             role="status"
             aria-live="polite"
-            className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center"
+            className="absolute flex items-center -translate-y-1/2 right-3 top-1/2"
           >
             <span className="sr-only">Loading…</span>
             <div
-              className="w-5 h-5 border-2 border-gray-300 border-t-blue-500 rounded-full animate-spin"
+              className="w-5 h-5 border-2 border-gray-300 rounded-full border-t-blue-500 animate-spin"
               aria-hidden="true"
             />
           </div>
@@ -154,7 +154,7 @@ export function InfiniteAutocompleteExample() {
           <button
             {...getClearProps()}
             type="button"
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 focus:outline-sky-600"
+            className="absolute text-gray-400 -translate-y-1/2 right-3 top-1/2 hover:text-gray-600 focus:outline-sky-600"
           >
             <XIcon />
           </button>
@@ -163,7 +163,7 @@ export function InfiniteAutocompleteExample() {
           <ul
             {...getListProps()}
             ref={parentRef}
-            className="absolute z-10 w-full mt-1 bg-white border rounded-md shadow-lg h-80 overflow-auto"
+            className="absolute z-10 w-full mt-1 overflow-auto bg-white border rounded-md shadow-lg h-80"
           >
             {isLoading ? (
               <p className="p-4">Loading...</p>
@@ -187,7 +187,7 @@ export function InfiniteAutocompleteExample() {
                     <p
                       key={key}
                       style={style}
-                      className="flex items-center justify-center py-2 border-t border-slate-600 mt-3 bg-slate-100"
+                      className="flex items-center justify-center py-2 mt-3 border-t border-slate-600 bg-slate-100"
                     >
                       {hasNextPage ? "Loading more…" : "End of users"}
                     </p>
@@ -206,7 +206,7 @@ export function InfiniteAutocompleteExample() {
                     )}
                   >
                     <div>
-                      <div className="font-medium flex">
+                      <div className="flex font-medium">
                         <p className="flex-1">{user.name}</p>
                         {getItemState(user).isSelected && (
                           <Check className="text-blue-500" />
