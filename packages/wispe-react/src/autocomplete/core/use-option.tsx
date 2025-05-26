@@ -53,6 +53,7 @@ export function useOption<T>({
         const action = item as ActionItem;
         return {
           role: "option",
+          id: `${internalId}-action-${index}`,
           "data-action-item": true,
           "aria-label": action.label,
           tabIndex: 0,
