@@ -83,10 +83,10 @@ export function TabLinksExample() {
       item.target === "internal"
         ? { to: item.url }
         : item.target === "download"
-        ? { href: item.url, download: "" }
-        : item.target === "ping"
-        ? { href: item.url, ping: item.url }
-        : item.url,
+          ? { href: item.url, download: "" }
+          : item.target === "ping"
+            ? { href: item.url, ping: item.url }
+            : item.url,
     state: { label: "Search links" },
     asyncDebounceMs: 300,
     onFilterAsync: async ({ searchTerm }) =>
@@ -112,7 +112,7 @@ export function TabLinksExample() {
             <button
               type="button"
               {...getClearProps()}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 bg-transparent hover:text-gray-600 focus:outline-sky-600"
+              className="absolute text-gray-400 -translate-y-1/2 bg-transparent right-3 top-1/2 hover:text-gray-600 focus:outline-sky-600"
             >
               <XIcon />
             </button>
@@ -123,7 +123,7 @@ export function TabLinksExample() {
               {/* Tabs */}
               <div
                 {...getTabListProps()}
-                className="flex space-x-2 p-3 bg-gray-50 border-b overflow-auto scroll-smooth"
+                className="flex p-3 space-x-2 overflow-auto border-b bg-gray-50 scroll-smooth"
               >
                 {tabs.map((tab, i) => {
                   const { isSelected } = getTabState(tab);
@@ -145,64 +145,72 @@ export function TabLinksExample() {
               </div>
 
               {/* Options */}
-              <ul {...getListProps()} className="max-h-60 overflow-auto">
+              <div {...getListProps()} className="overflow-auto max-h-60">
                 {getItems().length === 0 ? (
-                  <li className="px-4 py-2 text-gray-500">No results found</li>
+                  <p className="px-4 py-2 text-gray-500">No results found</p>
                 ) : (
                   getItems().map((link) => {
-                    const { isActive } = getItemState(link);
-
-                    return (
-                      <li
-                        key={link.id}
-                        {...getItemProps(link)}
-                        className={cn(
-                          "px-4 py-2 flex items-center justify-between",
-                          isActive && "bg-gray-100"
-                        )}
-                      >
-                        {link.target === "internal" ? (
-                          <Link
-                            {...getItemLinkProps(link)}
-                            to={link.url}
-                            rel="noopener noreferrer"
-                            target="_blank"
-                            className="flex items-center justify-between w-full"
-                          >
-                            <span>{link.name}</span>
-                            {getItemState(link).isSelected && (
-                              <Check className="text-blue-500" />
-                            )}
-                          </Link>
-                        ) : link.target === "download" ? (
-                          <a
-                            {...getItemLinkProps(link)}
-                            className="flex items-center justify-between w-full"
-                            download
-                          >
-                            <span>{link.name}</span>
-                            {getItemState(link).isSelected && (
-                              <Check className="text-blue-500" />
-                            )}
-                          </a>
-                        ) : (
-                          <a
-                            {...getItemLinkProps(link)}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex items-center justify-between w-full"
-                          >
-                            <span>{link.name}</span>
-                            {getItemState(link).isSelected && (
-                              <Check className="text-blue-500" />
-                            )}
-                          </a>
-                        )}
-                      </li>
-                    );
+                    if (link.target === "internal") {
+                      return (
+                        <Link
+                          {...getItemLinkProps(link)}
+                          key={link.id || link.url} // Add key prop for React list items
+                          to={link.url}
+                          rel="noopener noreferrer"
+                          target="_blank"
+                          className={cn(
+                            "flex items-center justify-between w-full",
+                            "px-4 py-2 cursor-pointer hover:bg-gray-100",
+                            getItemState(link).isActive && "bg-gray-100"
+                          )}
+                        >
+                          <span>{link.name}</span>
+                          {getItemState(link).isSelected && (
+                            <Check className="text-blue-500" />
+                          )}
+                        </Link>
+                      );
+                    } else if (link.target === "download") {
+                      return (
+                        <a
+                          {...getItemLinkProps(link)}
+                          key={link.id || link.url} // Add key prop for React list items
+                          className={cn(
+                            "flex items-center justify-between w-full",
+                            "px-4 py-2 cursor-pointer hover:bg-gray-100",
+                            getItemState(link).isActive && "bg-gray-100"
+                          )}
+                          download
+                        >
+                          <span>{link.name}</span>
+                          {getItemState(link).isSelected && (
+                            <Check className="text-blue-500" />
+                          )}
+                        </a>
+                      );
+                    } else {
+                      return (
+                        <a
+                          {...getItemLinkProps(link)}
+                          key={link.id || link.url} // Add key prop for React list items
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className={cn(
+                            "flex items-center justify-between w-full",
+                            "px-4 py-2 cursor-pointer hover:bg-gray-100",
+                            getItemState(link).isActive && "bg-gray-100"
+                          )}
+                        >
+                          <span>{link.name}</span>
+                          {getItemState(link).isSelected && (
+                            <Check className="text-blue-500" />
+                          )}
+                        </a>
+                      );
+                    }
                   })
                 )}
-              </ul>
+              </div>
             </div>
           )}
         </div>

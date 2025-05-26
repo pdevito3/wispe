@@ -12,13 +12,13 @@ export interface UseListboxOptions {
   /** Number of items (flattened) */
   size: number;
   /** Optional external ref for the listbox */
-  listboxRef?: React.RefObject<HTMLUListElement>;
-  /** Base internal ID for the listbox */
+  listboxRef?: React.RefObject<HTMLElement>;
+  /** Base internal ID for the autocomplete */
   internalId: string;
 }
 
 export function useListbox(opts: UseListboxOptions) {
-  const innerListboxRef = useRef<HTMLUListElement | null>(null);
+  const innerListboxRef = useRef<HTMLElement | null>(null);
   const listboxRef = opts.listboxRef ?? innerListboxRef;
 
   const getListProps = React.useCallback(

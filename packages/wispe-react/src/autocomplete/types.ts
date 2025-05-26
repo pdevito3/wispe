@@ -195,7 +195,7 @@ export interface UseAutoCompleteOptions<T, V = T> {
   /** An optional ref for the root element. */
   rootRef?: React.RefObject<HTMLDivElement>;
   /** An optional ref for the listbox element. */
-  listboxRef?: React.RefObject<HTMLUListElement>;
+  listboxRef?: React.RefObject<HTMLElement>;
   /** An optional ref for the input element. */
   inputRef?: React.RefObject<HTMLInputElement>;
   /** An optional ref for the label element. */
@@ -253,8 +253,8 @@ export interface UseAutoCompleteReturnNoActions<T, V = T> {
     ref: React.Ref<HTMLDivElement>;
   } & { [key: `data-${string}`]: string | boolean | undefined };
   /** Props for the <ul> listbox. */
-  getListProps: () => React.HTMLAttributes<HTMLUListElement> & {
-    ref: React.Ref<HTMLUListElement>;
+  getListProps<E extends HTMLElement>(): React.HTMLAttributes<E> & {
+    ref: React.Ref<E>;
   };
   /** Props for the <label>. */
   getLabelProps: () => React.LabelHTMLAttributes<HTMLLabelElement>;
@@ -337,9 +337,9 @@ export interface UseAutoCompleteReturnWithActions<T, V = T> {
   getRootProps: () => React.HTMLAttributes<HTMLDivElement> & {
     ref: React.Ref<HTMLDivElement>;
   } & { [key: `data-${string}`]: string | boolean | undefined };
-  /** Props for the <ul> listbox. */
-  getListProps: () => React.HTMLAttributes<HTMLUListElement> & {
-    ref: React.Ref<HTMLUListElement>;
+  /** Props for the listbox. */
+  getListProps<E extends HTMLElement>(): React.HTMLAttributes<E> & {
+    ref: React.Ref<E>;
   };
   /** Props for the <label>. */
   getLabelProps: () => React.LabelHTMLAttributes<HTMLLabelElement>;
