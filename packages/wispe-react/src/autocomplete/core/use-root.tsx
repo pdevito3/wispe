@@ -24,7 +24,7 @@ export function useAutocompleteRoot<T>({
   setHighlightedIndex: (index: number | null) => void;
   /** Optional external ref for the root element */
   rootRef?: React.RefObject<HTMLDivElement | null>;
-  /** Base internal ID for the listbox */
+  /** Base internal ID for the autocomplete */
   internalId: string;
 }) {
   const innerRootRef = useRef<HTMLDivElement | null>(null);

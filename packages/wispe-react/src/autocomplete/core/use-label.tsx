@@ -4,7 +4,7 @@ export interface UseLabelOptions {
   htmlFor: string;
   srOnly?: boolean;
   labelRef?: React.RefObject<HTMLLabelElement>;
-  /** Base internal ID for the listbox */
+  /** Base internal ID for the autocomplete */
   internalId: string;
 }
 

@@ -40,7 +40,7 @@ export interface UseInputOptions<T> {
   disabled?: boolean;
   /** Optional external ref for the input element */
   inputRef?: React.RefObject<HTMLInputElement>;
-  /** Base internal ID for the listbox */
+  /** Base internal ID for the autocomplete */
   internalId: string;
 }
 

@@ -9,7 +9,7 @@ export interface UseDisclosureOptions {
   itemsLength: number;
   /** toggle open/closed */
   setIsOpen(open: boolean): void;
-  /** Base internal ID for the listbox */
+  /** Base internal ID for the autocomplete */
   internalId: string;
 }
 
