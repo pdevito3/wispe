@@ -1,5 +1,4 @@
-import type { Tab } from "@/domain/autocomplete/types";
-import { useAutoComplete } from "@wispe/wispe-react";
+import { Tab, useAutoComplete } from "@wispe/wispe-react";
 import React, { useMemo } from "react";
 import { fruits, type Fruit } from "../datasets/fruit";
 import { Check, XIcon } from "../svgs";
@@ -66,7 +65,7 @@ export function TabsExample() {
             <button
               type="button"
               {...getClearProps()}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 bg-transparent hover:text-gray-600 focus:outline-sky-600"
+              className="absolute text-gray-400 -translate-y-1/2 bg-transparent right-3 top-1/2 hover:text-gray-600 focus:outline-sky-600"
             >
               <XIcon />
             </button>
@@ -77,7 +76,7 @@ export function TabsExample() {
               {/* Tabs */}
               <div
                 {...getTabListProps()}
-                className="flex space-x-2 p-3 bg-gray-50 relative overflow-auto"
+                className="relative flex p-3 space-x-2 overflow-auto bg-gray-50"
               >
                 {tabs.map((tab, i) => {
                   const { isSelected, itemCount } = getTabState(tab);
@@ -105,7 +104,7 @@ export function TabsExample() {
               </div>
 
               {/* Options */}
-              <ul {...getListProps()} className="max-h-60 overflow-auto">
+              <ul {...getListProps()} className="overflow-auto max-h-60">
                 {getItems().length === 0 ? (
                   <li className="px-4 py-2 text-gray-500">No fruits found</li>
                 ) : (
@@ -138,7 +137,7 @@ export function TabsExample() {
       </div>
 
       {getSelectedItem() && (
-        <div className="mt-4 p-4 bg-gray-50 rounded-md">
+        <div className="p-4 mt-4 rounded-md bg-gray-50">
           <h3 className="text-sm font-medium text-gray-500">Selected Fruit:</h3>
           <p className="mt-2 text-sm text-gray-900">
             {getSelectedItem()?.label}
@@ -152,7 +151,7 @@ export function TabsExample() {
 const KeyboardNavFooter = () => {
   return (
     <div className="flex items-center justify-start gap-4 p-2 border-t">
-      <div className="flex-1 flex items-center justify-start space-x-3">
+      <div className="flex items-center justify-start flex-1 space-x-3">
         <ShortcutGroup
           icons={[
             <svg

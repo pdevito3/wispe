@@ -1,8 +1,7 @@
 import { Link } from "@tanstack/react-router";
-import { useAutoComplete } from "@wispe/wispe-react";
+import { Tab, useAutoComplete } from "@wispe/wispe-react";
 import { useMemo } from "react";
 
-import type { Tab } from "@/domain/autocomplete/types";
 import { Check, XIcon } from "../svgs";
 import { cn } from "../utils";
 

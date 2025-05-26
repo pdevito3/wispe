@@ -1,6 +1,4 @@
-import { useAutoComplete } from "@wispe/wispe-react";
-
-import type { Group } from "@/domain/autocomplete/types";
+import { Group, useAutoComplete } from "@wispe/wispe-react";
 import { fruits, type Fruit } from "../datasets/fruit";
 import { Check, XIcon } from "../svgs";
 import { cn } from "../utils";
@@ -45,7 +43,7 @@ export function MultiGroupedFruitExample() {
       <div className="relative">
         <label
           {...getLabelProps()}
-          className="font-medium text-gray-700 text-sm mb-1 block"
+          className="block mb-1 text-sm font-medium text-gray-700"
         >
           Search fruits
         </label>
@@ -59,7 +57,7 @@ export function MultiGroupedFruitExample() {
             <button
               type="button"
               {...getClearProps()}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 bg-transparent hover:text-gray-600 focus:outline-sky-600"
+              className="absolute text-gray-400 -translate-y-1/2 bg-transparent right-3 top-1/2 hover:text-gray-600 focus:outline-sky-600"
             >
               <XIcon />
             </button>
@@ -68,7 +66,7 @@ export function MultiGroupedFruitExample() {
           {isOpen && (
             <ul
               {...getListProps()}
-              className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-auto"
+              className="absolute z-10 w-full mt-1 overflow-auto bg-white border border-gray-300 rounded-md shadow-lg max-h-60"
             >
               {seasonGroups.length === 0 ? (
                 <div className="px-4 py-2 text-gray-500">No results found</div>
@@ -77,7 +75,7 @@ export function MultiGroupedFruitExample() {
                   <ul {...getGroupProps(seasonGroup)} key={seasonGroup.key}>
                     <span
                       {...getGroupLabelProps(seasonGroup)}
-                      className="block px-4 py-1 text-xs uppercase tracking-wider font-bold bg-gray-600 text-gray-200"
+                      className="block px-4 py-1 text-xs font-bold tracking-wider text-gray-200 uppercase bg-gray-600"
                     >
                       {seasonGroup.key}
                     </span>
@@ -91,7 +89,7 @@ export function MultiGroupedFruitExample() {
                       >
                         <span
                           {...getGroupLabelProps(typeGroup)}
-                          className="block px-4 py-1 text-xs uppercase tracking-wider font-bold bg-gray-200 text-gray-800"
+                          className="block px-4 py-1 text-xs font-bold tracking-wider text-gray-800 uppercase bg-gray-200"
                         >
                           {typeGroup.key}
                         </span>
@@ -108,7 +106,7 @@ export function MultiGroupedFruitExample() {
                               <div className="flex items-center justify-between w-full">
                                 <span>{fruit.label}</span>
                                 {getItemState(fruit).isSelected && (
-                                  <Check className="text-green-500 h-5 w-5" />
+                                  <Check className="w-5 h-5 text-green-500" />
                                 )}
                               </div>
                             </li>
@@ -125,7 +123,7 @@ export function MultiGroupedFruitExample() {
       </div>
 
       {getSelectedItem() && (
-        <div className="mt-4 p-4 bg-gray-50 rounded-md">
+        <div className="p-4 mt-4 rounded-md bg-gray-50">
           <h3 className="text-sm font-medium text-gray-500">Selected Fruit:</h3>
           <div className="mt-2 space-y-1 text-sm text-gray-900">
             <p>
