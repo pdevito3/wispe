@@ -35,7 +35,7 @@ export function useLabel(opts: UseLabelOptions) {
         : undefined,
       "data-label": true,
     }),
-    [labelRef, opts.htmlFor, opts.internalId, opts.srOnly]
+    [labelRef, opts.internalId, opts.srOnly]
   );
 
   return { getLabelProps, labelRef };
