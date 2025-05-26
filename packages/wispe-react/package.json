@@ -1,6 +1,21 @@
 {
   "name": "@wispe/wispe-react",
   "version": "0.0.1",
+  "description": "A headless autocomplete for React with a Tanstack inspired API and rich interactions.",
+  "author": "Paul DeVito",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pdevito3/wispe.git",
+    "directory": "packages/wispe-react"
+  },
+  "homepage": "https://wispe.dev/",
+  "keywords": [
+    "react",
+    "autocomplete",
+    "combobox",
+    "headless"
+  ],
   "type": "module",
   "main": "./dist/index.esm.js",
   "module": "./dist/index.esm.js",
@@ -13,5 +28,13 @@
       "import": "./dist/index.esm.js",
       "default": "./dist/index.esm.js"
     }
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.3",
+    "react": "^18.3.1"
+  },
+  "peerDependencies": {
+    "react": ">=16.8",
+    "react-dom": ">=16.8"
   }
 }

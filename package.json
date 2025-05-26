@@ -33,7 +33,7 @@
     "@tanstack/react-virtual": "^3.13.6",
     "@tanstack/router-plugin": "^1.120.9",
     "@types/node": "^20.0.0",
-    "@types/react": "19.0.0",
+    "@types/react": "^18.3.3",
     "@types/react-dom": "19.0.0",
     "@vitejs/plugin-react": "^4.2.0",
     "@vitest/ui": "^3.0.0",
@@ -52,8 +52,8 @@
     "jsonc-eslint-parser": "^2.1.0",
     "nx": "21.1.2",
     "postcss": "8.4.38",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "react-hook-form": "^7.56.1",
     "rollup": "^4.14.0",
     "swc-loader": "0.1.15",
@@ -68,9 +68,5 @@
   "workspaces": [
     "packages/*",
     "tests/*"
-  ],
-  "dependencies": {
-    "react": "19.0.0",
-    "react-dom": "19.0.0"
-  }
+  ]
 }
