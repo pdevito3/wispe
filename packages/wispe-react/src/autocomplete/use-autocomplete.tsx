@@ -1,18 +1,19 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { useActiveItem } from "../autocomplete/core/useActiveItem";
-import { useAutocompleteRoot } from "../autocomplete/core/useAutocompleteRoot";
-import { useClearButton } from "../autocomplete/core/useClearButton";
-import { useDisclosure } from "../autocomplete/core/useDisclosure";
-import { useInput } from "../autocomplete/core/useInput";
-import { useLabel } from "../autocomplete/core/useLabel";
-import { useListbox } from "../autocomplete/core/useListbox";
-import { useOption } from "../autocomplete/core/useOption";
-import { useCustomValue } from "../autocomplete/features/useCustomValue";
-import { useFiltering } from "../autocomplete/features/useFiltering";
-import { useGroup } from "../autocomplete/features/useGroup";
-import { useGrouping } from "../autocomplete/features/useGrouping";
-import { useNavigation } from "../autocomplete/features/useNavigation";
-import { useTabs } from "../autocomplete/features/useTabs";
+import { useStableId } from "../hooks/use-id";
+import { useActiveItem } from "./core/use-active-item";
+import { useClearButton } from "./core/use-clear-button";
+import { useDisclosure } from "./core/use-disclosure-button";
+import { useInput } from "./core/use-input";
+import { useLabel } from "./core/use-label";
+import { useListbox } from "./core/use-listbox";
+import { useOption } from "./core/use-option";
+import { useAutocompleteRoot } from "./core/use-root";
+import { useCustomValue } from "./features/use-custom-value";
+import { useFiltering } from "./features/use-filtering";
+import { useGroup } from "./features/use-group";
+import { useGrouping } from "./features/use-grouping";
+import { useNavigation } from "./features/use-navigation";
+import { useTabs } from "./features/use-tabs";
 import type {
   ActionItem,
   GroupingOptions,
@@ -25,8 +26,7 @@ import type {
   UseAutoCompleteUngroupedMultipleWithActions,
   UseAutoCompleteUngroupedSingleNoActions,
   UseAutoCompleteUngroupedSingleWithActions,
-} from "../autocomplete/types";
-import { useStableId } from "../hooks/use-id";
+} from "./types";
 
 export function useAutoComplete<T, V = T>(
   options: UseAutoCompleteOptions<T, V> & {
