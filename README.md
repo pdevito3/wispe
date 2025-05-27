@@ -1,90 +1,97 @@
 # Wispe
 
-<a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
+Wispe is an autocomplete component for React that is unstyled (headless) and has a Tanstack inspired API with rich interactions.
 
-✨ Your new, shiny [Nx workspace](https://nx.dev) is almost ready ✨.
+## Documentation
 
-[Learn more about this workspace setup and its capabilities](https://nx.dev/nx-api/js?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
+Visit https://wispe.dev/docs to view the documentation.
 
-## Finish your remote caching setup
+## Usage
 
-[Click here to finish setting up your workspace!](https://cloud.nx.app/connect/HdLSwbBqCL)
+To start using the library, install it in your project:
 
-
-## Generate a library
-
-```sh
-npx nx g @nx/js:lib packages/pkg1 --publishable --importPath=@my-org/pkg1
+```bash
+npm install @wispe/wispe-react
 ```
 
-## Run tasks
+Use `useAutoComplete` to establish your incoming automcplete state and use the return values to compose your actual component.
 
-To build the library use:
+```tsx
+import { useAutoComplete } from "@wispe/wispe-react";
 
-```sh
-npx nx build pkg1
+export interface User {
+  id: number;
+  name: string;
+}
+
+export const users: User[] = [
+  { id: 1, name: "John Doe" },
+  { id: 2, name: "Jane Smith" },
+  { id: 3, name: "Bob Johnson" },
+  { id: 4, name: "Alice Brown" },
+  { id: 5, name: "Charlie Wilson" },
+];
+
+export function BasicAutocomplete() {
+  const {
+    getRootProps,
+    getLabelProps,
+    getInputProps,
+    getListProps,
+    getItemProps,
+    getItemState,
+    getItems,
+    isOpen,
+  } = useAutoComplete({
+    items: users,
+    state: {
+      label: "Search users",
+    },
+    onFilterAsync: async ({ searchTerm }) =>
+      users.filter((u) =>
+        u.name.toLowerCase().includes(searchTerm.toLowerCase())
+      ),
+    itemToString: (u) => u.name,
+  });
+
+  return (
+    <>
+      <label {...getLabelProps()}>Search users</label>
+      <div {...getRootProps()}>
+        <input {...getInputProps()} />
+
+        {isOpen && (
+          <ul {...getListProps()}>
+            {getItems().map((user) => (
+              <li key={user.id} {...getItemProps(user)}>
+                <span>
+                  {user.name} {getItemState(user).isSelected && <span>✓</span>}
+                </span>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    </>
+  );
+}
+
 ```
 
-To run any task with Nx use:
+## Feature Summary
 
-```sh
-npx nx <target> <project-name>
-```
-
-These targets are either [inferred automatically](https://nx.dev/concepts/inferred-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or defined in the `project.json` or `package.json` files.
-
-[More about running tasks in the docs &raquo;](https://nx.dev/features/run-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Versioning and releasing
-
-To version and release the library use
-
-```
-npx nx release
-```
-
-Pass `--dry-run` to see what would happen without actually releasing the library.
-
-[Learn more about Nx release &raquo;](hhttps://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Keep TypeScript project references up to date
-
-Nx automatically updates TypeScript [project references](https://www.typescriptlang.org/docs/handbook/project-references.html) in `tsconfig.json` files to ensure they remain accurate based on your project dependencies (`import` or `require` statements). This sync is automatically done when running tasks such as `build` or `typecheck`, which require updated references to function correctly.
-
-To manually trigger the process to sync the project graph dependencies information to the TypeScript project references, run the following command:
-
-```sh
-npx nx sync
-```
-
-You can enforce that the TypeScript project references are always in the correct state when running in CI by adding a step to your CI job configuration that runs the following command:
-
-```sh
-npx nx sync:check
-```
-
-[Learn more about nx sync](https://nx.dev/reference/nx-commands#sync)
-
-
-[Learn more about Nx on CI](https://nx.dev/ci/intro/ci-with-nx#ready-get-started-with-your-provider?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Install Nx Console
-
-Nx Console is an editor extension that enriches your developer experience. It lets you run tasks, generate code, and improves code autocompletion in your IDE. It is available for VSCode and IntelliJ.
-
-[Install Nx Console &raquo;](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Useful links
-
-Learn more:
-
-- [Learn more about this workspace setup](https://nx.dev/nx-api/js?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects)
-- [Learn about Nx on CI](https://nx.dev/ci/intro/ci-with-nx?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Releasing Packages with Nx release](https://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [What are Nx plugins?](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-And join the Nx community:
-- [Discord](https://go.nx.dev/community)
-- [Follow us on X](https://twitter.com/nxdevtools) or [LinkedIn](https://www.linkedin.com/company/nrwl)
-- [Our Youtube channel](https://www.youtube.com/@nxdevtools)
-- [Our blog](https://nx.dev/blog?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+- 100% TypeScript (but not required)
+- Headless (100% customizable, Bring-your-own-UI)
+- Auto out of the box, opt-in controllable state
+- Keyboard Navigation (and overall a11y support)
+- Flexible Filtering Options
+- 1st Class Async Data Support
+- Built in Debounce Option
+- Tab Navigation
+- Grouping & Aggregation
+- Link Items
+- Action Items
+- Create New Items
+- Clearable
+- Animatable
+- Virtualizable
