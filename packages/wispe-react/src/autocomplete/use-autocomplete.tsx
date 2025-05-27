@@ -495,7 +495,6 @@ export function useAutoComplete<T, V = T>({
   });
 
   const { getLabelProps } = useLabel({
-    htmlFor: "autocomplete-input",
     srOnly: labelSrOnly,
     labelRef: labelRefProp,
     internalId,
