@@ -87,6 +87,7 @@ export function BasicAutocomplete() {
 - Flexible Filtering Options
 - 1st Class Async Data Support
 - Built in Debounce Option
+- Single or Multi-Select
 - Tab Navigation
 - Grouping & Aggregation
 - Link Items
