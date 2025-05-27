@@ -315,12 +315,25 @@ export function useAutoComplete<T, V = T>({
     }
   }, [mode, selectedValueProp, selectedValuesProp, setInputValue]);
 
-  // when there is an initial selected item, the input value should be set to the string value of that item
+  // when controlled selectedValueProp changes, reflect it in the input especially
+  // when there is an initial selected item
   useEffect(() => {
-    if (mode === "single" && selectedItem) {
-      setInputValue(itemToStringFn(selectedItem));
+    if (mode === "single" && selectedValueProp !== undefined) {
+      if (internalSelectedItem) {
+        setInputValue(itemToStringFn(internalSelectedItem));
+      } else {
+        setInputValue("");
+      }
     }
-  }, [mode, selectedItem, setInputValue, itemToStringFn]);
+  }, [
+    mode,
+    selectedValueProp,
+    internalSelectedItem,
+    itemToStringFn,
+    setInputValue,
+  ]);
+
+  // TODO removed — hook above replaces it
 
   const { isCustomItem } = useCustomValue<T>({
     items,
