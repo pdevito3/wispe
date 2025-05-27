@@ -66,7 +66,6 @@ export function TabLinksExample() {
     getLabelProps,
     getInputProps,
     getListProps,
-    getItemProps,
     getItemLinkProps,
     getItemState,
     getItems,
