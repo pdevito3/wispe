@@ -2,6 +2,9 @@
 
 Wispe is an autocomplete component for React that is unstyled (headless) and has a Tanstack inspired API with rich interactions.
 
+> [!IMPORTANT]  
+> You can try Wispe ALPHA today! While usable, it is still currently in development and is will still undergo some breaking changes as I near BETA and gather feedback. I invite you at to try it out and provide feedback to help shape the final product! If you choose to ship with this to production, I recommend locking your dependencies to a specific version and keeping up with the latest releases.
+
 ## Documentation
 
 Visit https://wispe.dev/docs to view the documentation.
