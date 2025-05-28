@@ -9,6 +9,10 @@
     "url": "https://github.com/pdevito3/wispe.git",
     "directory": "packages/wispe-react"
   },
+  "files":[
+    "dist",
+    "src"
+  ],
   "homepage": "https://wispe.dev/",
   "keywords": [
     "react",
