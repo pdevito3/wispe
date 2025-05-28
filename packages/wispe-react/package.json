@@ -1,6 +1,6 @@
 {
   "name": "@wispe/wispe-react",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A headless autocomplete for React with a Tanstack inspired API and rich interactions.",
   "author": "Paul DeVito",
   "license": "MIT",
