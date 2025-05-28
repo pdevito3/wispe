@@ -39,7 +39,6 @@ export function TabsExample() {
     getTabState,
   } = useAutoComplete<Fruit>({
     items: fruits,
-    state: { label: "Search fruits" },
     asyncDebounceMs: 300,
     // simple async filter by label
     onFilterAsync: async ({ searchTerm }) =>

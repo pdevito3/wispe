@@ -44,9 +44,6 @@ export function BasicAutocomplete() {
     isOpen,
   } = useAutoComplete({
     items: users,
-    state: {
-      label: "Search users",
-    },
     onFilterAsync: async ({ searchTerm }) =>
       users.filter((u) =>
         u.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -75,7 +72,6 @@ export function BasicAutocomplete() {
     </>
   );
 }
-
 ```
 
 ## Feature Summary

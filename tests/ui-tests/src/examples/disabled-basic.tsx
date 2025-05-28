@@ -18,9 +18,6 @@ export function BasicDisabledExample() {
     getSelectedItem,
   } = useAutoComplete({
     items: users,
-    state: {
-      label: "Search users",
-    },
     asyncDebounceMs: 300,
     onFilterAsync: async ({ searchTerm }) =>
       users.filter((u) =>

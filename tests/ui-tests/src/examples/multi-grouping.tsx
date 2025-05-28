@@ -21,7 +21,6 @@ export function MultiGroupedFruitExample() {
   } = useAutoComplete<Fruit>({
     items: fruits,
     state: {
-      label: "Search fruits",
       grouping: [
         { key: "season", label: "Season" },
         { key: "type", label: "Fruit Type" },

@@ -21,7 +21,6 @@ export function GroupedFruitExample() {
   } = useAutoComplete<Fruit>({
     items: fruits,
     state: {
-      label: "Search fruits",
       grouping: [{ key: "type", label: "Fruit Type" }],
     },
     asyncDebounceMs: 300,

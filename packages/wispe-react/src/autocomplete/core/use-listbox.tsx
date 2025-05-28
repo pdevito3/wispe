@@ -3,8 +3,6 @@ import React, { useRef } from "react";
 export interface UseListboxOptions {
   /** Whether the menu is open */
   isOpen: boolean;
-  /** Accessible label for the listbox */
-  label: string;
   /** True when there is at least one grouping level */
   hasGroups: boolean;
   /** True when the list of items is empty */
@@ -26,7 +24,6 @@ export function useListbox(opts: UseListboxOptions) {
       id: `${opts.internalId}-listbox`,
       ref: listboxRef,
       role: "listbox",
-      "aria-label": opts.label,
       tabIndex: -1,
       "data-listbox": true,
       "data-state": opts.isOpen ? "open" : "closed",
@@ -36,7 +33,6 @@ export function useListbox(opts: UseListboxOptions) {
     }),
     [
       opts.internalId,
-      opts.label,
       opts.isOpen,
       opts.hasGroups,
       opts.isEmpty,

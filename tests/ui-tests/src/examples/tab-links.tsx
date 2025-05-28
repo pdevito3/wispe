@@ -85,7 +85,6 @@ export function TabLinksExample() {
           : item.target === "ping"
             ? { href: item.url, ping: item.url }
             : item.url,
-    state: { label: "Search links" },
     asyncDebounceMs: 300,
     onFilterAsync: async ({ searchTerm }) =>
       links.filter((link) =>

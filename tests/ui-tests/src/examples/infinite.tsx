@@ -116,7 +116,6 @@ export function InfiniteAutocompleteExample() {
       setIsOpen,
       activeItem,
       setActiveItem,
-      label: "Search users",
     },
     items: allUsers,
     itemToString: (u) => u.name,

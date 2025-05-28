@@ -140,7 +140,6 @@ export function useAutoComplete<T, V = T>({
     highlightedIndex: highlightedIndexProp,
     setHighlightedIndex: setHighlightedIndexProp,
     disabled,
-    label: labelProp = "",
     defaultValue,
     grouping: groupingProp,
 
@@ -478,7 +477,6 @@ export function useAutoComplete<T, V = T>({
 
   const { getListProps } = useListbox({
     isOpen,
-    label: labelProp,
     hasGroups: groupingOptions.length > 0,
     isEmpty: flattenedItems.length === 0,
     size: flattenedItems.length,

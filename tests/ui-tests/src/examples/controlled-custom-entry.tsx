@@ -32,7 +32,6 @@ export function ControlledCustomEntryExample({
     items: languages,
     allowsCustomItems,
     state: {
-      label: "Choose or add a language",
       inputValue,
       setInputValue,
       isOpen,

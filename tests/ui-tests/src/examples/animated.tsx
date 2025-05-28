@@ -19,9 +19,6 @@ export function Animated() {
     getSelectedItem,
   } = useAutoComplete<Fruit>({
     items: fruits,
-    state: {
-      label: "Search fruits",
-    },
     asyncDebounceMs: 300,
     onFilterAsync: async ({ searchTerm }) =>
       fruits.filter((f) =>
@@ -45,7 +42,7 @@ export function Animated() {
               // @ts-expect-error motion
               <motion.button
                 type="button"
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 bg-transparent hover:text-gray-600 focus:outline-sky-600"
+                className="absolute text-gray-400 -translate-y-1/2 bg-transparent right-3 top-1/2 hover:text-gray-600 focus:outline-sky-600"
                 {...getClearProps()}
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
@@ -61,7 +58,7 @@ export function Animated() {
               // @ts-expect-error motion
               <motion.ul
                 {...getListProps()}
-                className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-auto"
+                className="absolute z-10 w-full mt-1 overflow-auto bg-white border border-gray-300 rounded-md shadow-lg max-h-60"
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
@@ -119,7 +116,7 @@ export function Animated() {
       <AnimatePresence>
         {getSelectedItem() && (
           <motion.div
-            className="mt-4 p-4 bg-gray-50 rounded-md"
+            className="p-4 mt-4 rounded-md bg-gray-50"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 10 }}

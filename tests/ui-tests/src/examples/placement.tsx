@@ -1,10 +1,10 @@
 import {
-    autoUpdate,
-    flip,
-    offset,
-    shift,
-    size,
-    useFloating,
+  autoUpdate,
+  flip,
+  offset,
+  shift,
+  size,
+  useFloating,
 } from "@floating-ui/react";
 import { useAutoComplete } from "@wispe/wispe-react";
 import { users } from "../datasets/users";
@@ -35,7 +35,6 @@ export function PlacementExample() {
     getSelectedItem,
   } = useAutoComplete({
     items: users,
-    state: { label: "Search users" },
     asyncDebounceMs: 300,
     onFilterAsync: async ({ searchTerm }) =>
       users.filter((u) =>

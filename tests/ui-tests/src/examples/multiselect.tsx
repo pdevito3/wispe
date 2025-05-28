@@ -19,7 +19,6 @@ export default function MultiFruitExample() {
   } = useAutoComplete<(typeof fruits)[0]>({
     mode: "multiple",
     items: fruits,
-    state: { label: "Select fruits" },
     asyncDebounceMs: 300,
     onFilterAsync: async ({ searchTerm }) =>
       fruits.filter((f) =>

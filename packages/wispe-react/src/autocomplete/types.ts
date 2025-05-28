@@ -108,8 +108,6 @@ export interface UseAutocompleteState<T, V = T> {
   highlightedIndex?: number | null;
   /** External setter for the highlightedIndex. */
   setHighlightedIndex?: (index: number | null) => void;
-  /** Accessible label for the autocomplete component. */
-  label?: string;
   /** Whether the input is disabled. */
   disabled?: boolean;
 

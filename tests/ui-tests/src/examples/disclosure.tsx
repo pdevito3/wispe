@@ -30,7 +30,6 @@ export function DisclosureExample() {
       setIsOpen,
       activeItem,
       setActiveItem,
-      label: "Search users",
     },
     asyncDebounceMs: 300,
     onFilterAsync: async ({ searchTerm }) =>

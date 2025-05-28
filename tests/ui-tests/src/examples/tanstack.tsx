@@ -39,7 +39,6 @@ export function ControllableAutocomplete<T>({
       setSelectedValue: onChange,
       isOpen,
       setIsOpen,
-      label,
     },
     asyncDebounceMs: 300,
     onFilterAsync: async ({ searchTerm }) =>
@@ -118,7 +117,6 @@ export function TanstackExample() {
     >
       <form.Field
         name="fruit"
-        // eslint-disable-next-line react/no-children-prop
         children={(field) => (
           <ControllableAutocomplete<Fruit>
             value={field.state.value}

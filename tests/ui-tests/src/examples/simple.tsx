@@ -32,9 +32,6 @@ export function SimpleExample() {
     getSelectedItem,
   } = useAutoComplete<string>({
     items: fruits,
-    state: {
-      label: "Search fruits",
-    },
     asyncDebounceMs: 300,
     onFilterAsync: async ({ searchTerm }) =>
       fruits.filter((fruit) =>

@@ -18,9 +18,6 @@ export function ComplexDisabledExample() {
     getSelectedItem,
   } = useAutoComplete<Fruit>({
     items: fruits,
-    state: {
-      label: "Search fruits",
-    },
     asyncDebounceMs: 300,
     onFilterAsync: async ({ searchTerm }) =>
       fruits.filter((f) =>

@@ -25,11 +25,8 @@ export function ControlledByIdExample() {
     items: users,
     mapValue: (u) => u.id,
     state: {
-      // controlled single mode:
       selectedValue: selectedId,
       setSelectedValue: setSelectedId,
-      // reuse BasicExample’s label
-      label: "Search users",
     },
     asyncDebounceMs: 300,
     onFilterAsync: async ({ searchTerm }) =>

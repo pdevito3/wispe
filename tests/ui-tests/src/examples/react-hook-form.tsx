@@ -41,7 +41,6 @@ export function ControllableAutocomplete<T>({
       setSelectedValue: onChange,
       isOpen,
       setIsOpen,
-      label,
     },
     asyncDebounceMs: 300,
     onFilterAsync: async ({ searchTerm }) =>
@@ -61,13 +60,13 @@ export function ControllableAutocomplete<T>({
         <input
           {...getInputProps()}
           placeholder={`Search ${label.toLowerCase()}…`}
-          className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
         />
         {hasSelectedItem() && (
           <button
             type="button"
             {...getClearProps()}
-            className="absolute right-3 top-1/2 -translate-y-1/2 focus:outline-sky-600 bg-transparent text-gray-400 hover:text-gray-600"
+            className="absolute text-gray-400 -translate-y-1/2 bg-transparent right-3 top-1/2 focus:outline-sky-600 hover:text-gray-600"
           >
             <XIcon />
           </button>
@@ -75,7 +74,7 @@ export function ControllableAutocomplete<T>({
         {isOpen && (
           <ul
             {...getListProps()}
-            className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-auto"
+            className="absolute z-10 w-full mt-1 overflow-auto bg-white border border-gray-300 rounded-md shadow-lg max-h-60"
           >
             {getItems().length === 0 ? (
               <li className="px-4 py-2 text-gray-500">
@@ -143,7 +142,7 @@ export function ReactHookFormExample() {
       <button
         type="submit"
         disabled={isSubmitting}
-        className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:opacity-50"
+        className="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700 disabled:opacity-50"
       >
         {isSubmitting ? "Saving…" : "Submit"}
       </button>

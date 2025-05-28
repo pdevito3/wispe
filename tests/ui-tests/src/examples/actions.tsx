@@ -20,9 +20,6 @@ export function CustomActions() {
     setIsOpen,
   } = useAutoComplete<Fruit>({
     items: fruits,
-    state: {
-      label: "Search fruits",
-    },
     asyncDebounceMs: 300,
     onFilterAsync: async ({ searchTerm }) =>
       fruits.filter((f) =>
@@ -65,7 +62,7 @@ export function CustomActions() {
             <button
               type="button"
               {...getClearProps()}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 bg-transparent hover:text-gray-600 focus:outline-sky-600"
+              className="absolute text-gray-400 -translate-y-1/2 bg-transparent right-3 top-1/2 hover:text-gray-600 focus:outline-sky-600"
             >
               <XIcon />
             </button>
@@ -74,7 +71,7 @@ export function CustomActions() {
           {isOpen && (
             <ul
               {...getListProps()}
-              className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-auto"
+              className="absolute z-10 w-full mt-1 overflow-auto bg-white border border-gray-300 rounded-md shadow-lg max-h-60"
             >
               {getItems().length === 0 ? (
                 <li className="px-4 py-2 text-gray-500">No fruits found</li>
@@ -87,7 +84,7 @@ export function CustomActions() {
                       <li
                         key={`action-${idx}`}
                         {...getItemProps(item)}
-                        className="px-4 py-2 cursor-pointer text-blue-600 hover:bg-blue-50"
+                        className="px-4 py-2 text-blue-600 cursor-pointer hover:bg-blue-50"
                       >
                         {item.label}
                       </li>
@@ -117,7 +114,7 @@ export function CustomActions() {
       </div>
 
       {getSelectedItem() && !("__isAction" in getSelectedItem()!) && (
-        <div className="mt-4 p-4 bg-gray-50 rounded-md">
+        <div className="p-4 mt-4 rounded-md bg-gray-50">
           <h3 className="text-sm font-medium text-gray-500">Selected Fruit:</h3>
           <p className="mt-2 text-sm text-gray-900">
             {(getSelectedItem() as Fruit).label}

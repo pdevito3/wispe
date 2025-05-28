@@ -27,7 +27,6 @@ export function DetailedOptionExample() {
       setIsOpen,
       activeItem,
       setActiveItem,
-      label: "Search users with custom rendering",
     },
     labelSrOnly: true,
     onFilterAsync: async ({ searchTerm }) =>

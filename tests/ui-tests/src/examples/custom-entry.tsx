@@ -29,7 +29,6 @@ export function CustomEntryExample({
   } = useAutoComplete<string>({
     items: languages,
     allowsCustomItems,
-    state: { label: "Choose or add a language" },
     asyncDebounceMs: 200,
     onFilterAsync: async ({ searchTerm }) =>
       languages.filter((lang) =>
