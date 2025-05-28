@@ -23,23 +23,25 @@ export function useAutocompleteRoot<T>({
   setActiveItem: (item: T | null) => void;
   setHighlightedIndex: (index: number | null) => void;
   /** Optional external ref for the root element */
-  rootRef?: React.RefObject<HTMLDivElement | null>;
+  rootRef?: React.RefObject<HTMLDivElement>;
   /** Base internal ID for the autocomplete */
   internalId: string;
 }) {
-  const innerRootRef = useRef<HTMLDivElement | null>(null);
+  const innerRootRef = useRef<HTMLDivElement>(null);
   const rootRef = rootRefProp ?? innerRootRef;
 
   const getRootProps = useCallback((): React.HTMLAttributes<HTMLDivElement> & {
     ref: React.Ref<HTMLDivElement>;
   } & { [key: `data-${string}`]: string | boolean | undefined } => {
+    const id = `${internalId}-root`;
+
     return {
       ref: rootRef,
-      id: `${internalId}-root`,
+      id: id,
       role: "combobox",
       "aria-expanded": isOpen,
       "aria-haspopup": "listbox",
-      "aria-controls": "autocomplete-listbox",
+      "aria-controls": id,
       "data-combobox": true,
       "data-expanded": isOpen ? true : false,
       "data-focused": isFocused ? true : undefined,

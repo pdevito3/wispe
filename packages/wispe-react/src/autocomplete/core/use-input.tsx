@@ -114,7 +114,7 @@ export function useInput<T>(opts: UseInputOptions<T>) {
       },
       autoComplete: "off",
       "aria-autocomplete": "list",
-      "aria-controls": "autocomplete-listbox",
+      "aria-controls": getInputId(opts.internalId),
       "aria-activedescendant":
         opts.activeItem != null
           ? `option-${opts.flattenedItems.indexOf(opts.activeItem)}`
