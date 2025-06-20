@@ -126,6 +126,7 @@ export function InfiniteAutocompleteExample() {
       // return allUsers so hook's internal list stays in sync
       return allUsers;
     },
+    listboxRef: parentRef,
   });
 
   return (

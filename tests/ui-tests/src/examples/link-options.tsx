@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { useAutoComplete } from "@wispe/wispe-react";
-import { Check, XIcon } from "../svgs";
+import { XIcon } from "../svgs";
 import { cn } from "../utils";
 
 interface LinkItem {
@@ -74,7 +74,7 @@ export function LinkOptionsExample() {
   return (
     <div className="max-w-md">
       <div className="relative">
-        <label {...getLabelProps()}>Search links</label>
+        <label {...getLabelProps()}>Navigate</label>
         <div {...getRootProps()} className="relative">
           <input
             {...getInputProps()}
@@ -104,7 +104,7 @@ export function LinkOptionsExample() {
                     return (
                       <Link
                         {...getItemLinkProps(link)}
-                        key={link.id || link.url} // Add key prop for React list items
+                        key={link.id || link.url}
                         to={link.url}
                         rel="noopener noreferrer"
                         target="_blank"
@@ -115,16 +115,16 @@ export function LinkOptionsExample() {
                         )}
                       >
                         <span>{link.name}</span>
-                        {getItemState(link).isSelected && (
-                          <Check className="text-blue-500" />
-                        )}
+                        <span className="text-xs italic text-slate-400">
+                          {link.target}
+                        </span>
                       </Link>
                     );
                   } else if (link.target === "download") {
                     return (
                       <a
                         {...getItemLinkProps(link)}
-                        key={link.id || link.url} // Add key prop for React list items
+                        key={link.id || link.url}
                         className={cn(
                           "flex items-center justify-between w-full",
                           "px-4 py-2 cursor-pointer hover:bg-gray-100",
@@ -133,16 +133,16 @@ export function LinkOptionsExample() {
                         download
                       >
                         <span>{link.name}</span>
-                        {getItemState(link).isSelected && (
-                          <Check className="text-blue-500" />
-                        )}
+                        <span className="text-xs italic text-slate-400">
+                          {link.target}
+                        </span>
                       </a>
                     );
                   } else {
                     return (
                       <a
                         {...getItemLinkProps(link)}
-                        key={link.id || link.url} // Add key prop for React list items
+                        key={link.id || link.url}
                         target="_blank"
                         rel="noopener noreferrer"
                         className={cn(
@@ -152,9 +152,9 @@ export function LinkOptionsExample() {
                         )}
                       >
                         <span>{link.name}</span>
-                        {getItemState(link).isSelected && (
-                          <Check className="text-blue-500" />
-                        )}
+                        <span className="text-xs italic text-slate-400">
+                          {link.target}
+                        </span>
                       </a>
                     );
                   }

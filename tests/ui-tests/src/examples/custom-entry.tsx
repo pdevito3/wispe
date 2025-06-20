@@ -54,7 +54,7 @@ export function CustomEntryExample({
           <button
             {...getClearProps()}
             type="button"
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 focus:outline-sky-600 bg-transparent"
+            className="absolute text-gray-400 -translate-y-1/2 bg-transparent right-3 top-1/2 hover:text-gray-600 focus:outline-sky-600"
           >
             <XIcon />
           </button>
@@ -63,7 +63,7 @@ export function CustomEntryExample({
         {isOpen && (
           <ul
             {...getListProps()}
-            className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-auto"
+            className="absolute z-10 w-full mt-1 overflow-auto bg-white border border-gray-300 rounded-md shadow-lg max-h-60"
           >
             {items.map((lang) => (
               <li
@@ -75,7 +75,9 @@ export function CustomEntryExample({
                 )}
               >
                 <div className="flex items-center justify-between">
-                  {isCustomItem(lang) ? `Add "${lang}"` : lang}
+                  {isCustomItem(lang) && !getItemState(lang).isSelected
+                    ? `Add "${lang}"`
+                    : lang}
                   {getItemState(lang).isSelected && <Check />}
                 </div>
               </li>
@@ -85,7 +87,7 @@ export function CustomEntryExample({
       </div>
 
       {getSelectedItem() && (
-        <div className="mt-4 p-4 bg-gray-50 rounded-md">
+        <div className="p-4 mt-4 rounded-md bg-gray-50">
           <h3 className="text-sm font-medium text-gray-500">Selected:</h3>
           <p className="mt-1 text-sm text-gray-900">
             {getSelectedItem() as string}
