@@ -1,14 +1,10 @@
-# .github/workflows/publish-wispe-react.yml
 name: Publish Wispe React
-
-permissions:
-  contents: write # needed for pushing tags & creating releases
 
 on:
   workflow_dispatch:
     inputs:
       tag:
-        description: "Override release tag (also becomes Git tag; defaults to v<package.json version>)"
+        description: 'Override npm dist-tag (defaults to "latest")'
         required: false
 
 jobs:
@@ -16,57 +12,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1) Checkout with full history so we can tag & release
+      # 1) Checkout repository
       - name: Checkout repository
         uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
 
-      # 2) Read version from package.json
-      - name: Get wispe-react version
-        id: get_version
-        run: |
-          VERSION=$(jq -r '.version' packages/wispe-react/package.json)
-          echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
-
-      # 3) Determine the tag name
-      - name: Determine tag name
-        id: determine_tag
-        run: |
-          if [ -n "${{ github.event.inputs.tag }}" ]; then
-            echo "TAG=${{ github.event.inputs.tag }}" >> $GITHUB_OUTPUT
-          else
-            echo "TAG=v${{ steps.get_version.outputs.VERSION }}" >> $GITHUB_OUTPUT
-          fi
-
-      # 4) Create & push Git tag if it doesn't exist
-      - name: Create Git tag if missing
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          TAG=${{ steps.determine_tag.outputs.TAG }}
-          if ! git rev-parse "$TAG" >/dev/null 2>&1; then
-            git config user.name "${{ github.actor }}"
-            git config user.email "${{ github.actor }}@users.noreply.github.com"
-            git tag "$TAG"
-            git push origin "$TAG"
-            echo "✔️ Created and pushed Git tag $TAG"
-          else
-            echo "ℹ️ Git tag $TAG already exists, skipping"
-          fi
-
-      # 5) Create a GitHub Release for that tag
-      - name: Create GitHub Release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ steps.determine_tag.outputs.TAG }}
-          release_name: ${{ steps.determine_tag.outputs.TAG }}
-          draft: false
-          prerelease: false
-
-      # 6) Set up Node 22 & authenticate to npm (no token in logs)
+      # 2) Set up Node.js & authenticate to npm
       - name: Set up Node.js & authenticate
         uses: actions/setup-node@v3
         with:
@@ -76,20 +26,21 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      # 7) Install deps, build, and publish
+      # 3) Install dependencies
       - name: Install dependencies
         run: npm ci
 
+      # 4) Build wispe-react
       - name: Build wispe-react
         run: npx nx build wispe-react
 
+      # 5) Publish to npm
       - name: Publish to npm
         working-directory: packages/wispe-react/dist
         run: |
-          TAG=${{ steps.determine_tag.outputs.TAG }}
           if [ -n "${{ github.event.inputs.tag }}" ]; then
-            echo "Publishing to npm with tag '$TAG'"
-            npm publish --tag "$TAG"
+            echo "Publishing to npm with tag '${{ github.event.inputs.tag }}'"
+            npm publish --tag "${{ github.event.inputs.tag }}"
           else
             echo "Publishing to npm with default tag (latest)"
             npm publish
