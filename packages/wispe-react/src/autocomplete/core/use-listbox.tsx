@@ -10,7 +10,7 @@ export interface UseListboxOptions {
   /** Number of items (flattened) */
   size: number;
   /** Optional external ref for the listbox */
-  listboxRef?: React.RefObject<HTMLElement>;
+  listboxRef?: React.RefObject<HTMLElement | null>;
   /** Base internal ID for the autocomplete */
   internalId: string;
 }

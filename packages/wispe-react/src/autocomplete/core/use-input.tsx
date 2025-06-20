@@ -40,14 +40,14 @@ export interface UseInputOptions<T> {
   setIsFocused(isFocused: boolean): void;
   disabled?: boolean;
   /** Optional external ref for the input element */
-  inputRef?: React.RefObject<HTMLInputElement>;
+  inputRef?: React.RefObject<HTMLInputElement | null>;
   /** Base internal ID for the autocomplete */
   internalId: string;
 }
 
 export function useInput<T>(opts: UseInputOptions<T>) {
   const handleInputChange = useCallback(
-    async (e: React.ChangeEvent<HTMLInputElement>) => {
+    async (e: React.ChangeEvent<HTMLInputElement | null>) => {
       const v = e.target.value;
       opts.setInputValue(v);
       opts.onInputValueChange?.(v);
@@ -74,7 +74,7 @@ export function useInput<T>(opts: UseInputOptions<T>) {
 
   const getInputProps = React.useCallback(
     (): React.InputHTMLAttributes<HTMLInputElement> &
-      React.RefAttributes<HTMLInputElement> & {
+      React.RefAttributes<HTMLInputElement | null> & {
         [key: `data-${string}`]: string | boolean | undefined;
       } => ({
       id: getInputId(opts.internalId),

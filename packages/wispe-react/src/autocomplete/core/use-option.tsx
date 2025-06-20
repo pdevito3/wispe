@@ -119,7 +119,7 @@ export function useOption<T>({
       // always treat actions as their own state
       if ((item as ActionItem).__isAction) {
         return {
-          isActive: false,
+          isActive: item === activeItem,
           isDisabled: false,
           isSelected: false,
           isAction: true,
@@ -190,6 +190,7 @@ export function useOption<T>({
       selectedItems,
       selectedItem,
       getItemLink,
+      close,
     ]
   );
 

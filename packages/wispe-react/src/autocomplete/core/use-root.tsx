@@ -23,15 +23,15 @@ export function useAutocompleteRoot<T>({
   setActiveItem: (item: T | null) => void;
   setHighlightedIndex: (index: number | null) => void;
   /** Optional external ref for the root element */
-  rootRef?: React.RefObject<HTMLDivElement>;
+  rootRef?: React.RefObject<HTMLDivElement | null>;
   /** Base internal ID for the autocomplete */
   internalId: string;
 }) {
-  const innerRootRef = useRef<HTMLDivElement>(null);
+  const innerRootRef = useRef<HTMLDivElement | null>(null);
   const rootRef = rootRefProp ?? innerRootRef;
 
   const getRootProps = useCallback((): React.HTMLAttributes<HTMLDivElement> & {
-    ref: React.Ref<HTMLDivElement>;
+    ref: React.Ref<HTMLDivElement | null>;
   } & { [key: `data-${string}`]: string | boolean | undefined } => {
     const id = `${internalId}-root`;
 

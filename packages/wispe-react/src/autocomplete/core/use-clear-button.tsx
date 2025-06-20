@@ -23,7 +23,7 @@ export interface UseClearButtonOptions<T, V> {
   /** close the listbox */
   setIsOpen(open: boolean): void;
   /** Optional external ref for the clear button element */
-  clearRef?: React.RefObject<HTMLButtonElement>;
+  clearRef?: React.RefObject<HTMLButtonElement | null>;
   /** Base internal ID for the autocomplete */
   internalId: string;
 }
