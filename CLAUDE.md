@@ -63,8 +63,26 @@ nx run-many --target=typecheck
 # Run unit tests (if configured)
 nx run @wispe/wispe-react:test
 
-# Run e2e tests
+# Run all e2e tests
 nx run @wispe/ui-tests-e2e:e2e
+
+# Run specific test file
+npx playwright test tests/ui-tests-e2e/src/basic-example.spec.ts --config=tests/ui-tests-e2e/playwright.config.ts
+
+# Run tests in headed mode (see browser)
+npx playwright test tests/ui-tests-e2e/src/basic-example.spec.ts --headed
+
+# Run specific test by name
+npx playwright test tests/ui-tests-e2e/src/basic-example.spec.ts --grep "displays the basic autocomplete component"
+
+# Run tests with specific browser
+npx playwright test tests/ui-tests-e2e/src/basic-example.spec.ts --project=chromium
+
+# Debug tests interactively
+npx playwright test tests/ui-tests-e2e/src/basic-example.spec.ts --debug
+
+# Generate test report
+npx playwright show-report tests/ui-tests-e2e/test-output/playwright/report
 ```
 
 ## Architecture
@@ -119,3 +137,26 @@ The library uses a hybrid approach:
 - **`tests/ui-tests`** - Manual testing application with comprehensive examples
 - **`tests/ui-tests-e2e`** - Playwright-based automated testing
 - Examples cover all major features: basic usage, async data, grouping, multiselect, tabs, etc.
+
+### Testing Best Practices
+
+- **Use web-first assertions** instead of `waitForLoadState('networkidle')` for better reliability:
+  ```typescript
+  // ✅ Good - Web-first assertion
+  await expect(page.getByText('Basic Autocomplete')).toBeVisible();
+  
+  // ❌ Avoid - Network idle waiting
+  await page.waitForLoadState('networkidle');
+  ```
+- **Avoid conditionals in tests** for deterministic behavior:
+  ```typescript
+  // ✅ Good - Deterministic cleanup
+  await input.clear();
+  
+  // ❌ Avoid - Conditional logic
+  if (await clearButton.isVisible()) {
+    await clearButton.click();
+  }
+  ```
+- **Prefer specific element assertions** over generic timeouts
+- **Use component state cleanup** in beforeEach hooks to ensure test isolation
