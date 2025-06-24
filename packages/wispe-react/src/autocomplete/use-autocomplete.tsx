@@ -527,7 +527,7 @@ export function useAutoComplete<T, V = T>({
     getListProps,
     getLabelProps,
     getInputProps,
-    inputValue,
+    getInputValue: () => inputValue,
     setInputValue,
     getClearProps,
     getDisclosureProps,
