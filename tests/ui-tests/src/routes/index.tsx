@@ -11,6 +11,14 @@ import { DetailedOptionExample } from "../examples/custom-options";
 import { BasicDisabledExample } from "../examples/disabled-basic";
 import { ComplexDisabledExample } from "../examples/disabled-complex";
 import { DisclosureExample } from "../examples/disclosure";
+import { DropdownActions } from "../examples/dropdown-actions";
+import { DropdownBasic } from "../examples/dropdown-basic";
+import { DropdownDisabled } from "../examples/dropdown-disabled";
+import { DropdownDisabledItems } from "../examples/dropdown-disabled-items";
+import { DropdownGrouping } from "../examples/dropdown-grouping";
+import { DropdownLinks } from "../examples/dropdown-links";
+import { DropdownMultiselect } from "../examples/dropdown-multiselect";
+import { DropdownTabs } from "../examples/dropdown-tabs";
 import { GroupedFruitExample } from "../examples/grouping";
 import { InfiniteAutocompleteExample } from "../examples/infinite";
 import { LinkOptionsExample } from "../examples/link-options";
@@ -36,6 +44,30 @@ function Index() {
           
           <Example title="Basic Autocomplete">
             <BasicExample />
+          </Example>
+          <Example title="Basic Dropdown">
+            <DropdownBasic />
+          </Example>
+          <Example title="Dropdown Disabled">
+            <DropdownDisabled />
+          </Example>
+          <Example title="Dropdown Disabled Items">
+            <DropdownDisabledItems />
+          </Example>
+          <Example title="Dropdown Links">
+            <DropdownLinks />
+          </Example>
+          <Example title="Dropdown Tabs">
+            <DropdownTabs />
+          </Example>
+          <Example title="Dropdown Grouping">
+            <DropdownGrouping />
+          </Example>
+          <Example title="Dropdown Multiselect">
+            <DropdownMultiselect />
+          </Example>
+          <Example title="Dropdown Actions">
+            <DropdownActions />
           </Example>
           <Example title="Simple Autocomplete">
             <SimpleExample />
